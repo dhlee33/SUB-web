@@ -1,11 +1,13 @@
-import React from 'react'
-
-import { PageTemplate } from 'components'
+import React from 'react';
+import { Container } from 'reactstrap'
+import UpperBar from './UpperBar';
 
 const HomePage = () => {
   return (
-    <PageTemplate>Hello World</PageTemplate>
-  )
-}
+    <Container>
+      <UpperBar />
+    </Container>
+  );
+};
 
-export default HomePage
+export default HomePage;
