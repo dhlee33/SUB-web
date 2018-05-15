@@ -14,14 +14,20 @@ class ContentList extends Component <Props> {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: false,
-      nickname: '로그인 해주세요',
+      activeTab: '1',
     };
+    this.toggle = this.toggle.bind(this);
   }
 
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      });
+    }
+  }
 
   render() {
-    console.log(this.props);
     return (
       <Container>
         <Nav tabs>
@@ -34,11 +40,15 @@ class ContentList extends Component <Props> {
           </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '2' })}
+              onClick={() => { this.toggle('2'); }}
+            >
             삽니다
           </NavLink>
           </NavItem>
         </Nav>
+        <br />
         <Row>
           <Col sm={10}>
             <Pagination>
