@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import { reducer as form } from 'redux-form';
-import Loginreducer from '../components/pages/LoginPage/reducer';
+import LoginReducer from '../components/pages/LoginPage/reducer';
+import HomePageReducer from '../components/pages/HomePage/reducer';
 
 const reducers = {
   routing,
   form,
-  Loginreducer,
+  LoginReducer,
+  HomePageReducer,
 };
 
 const req = require.context('.', true, /\.\/.+\/reducer\.js$/);

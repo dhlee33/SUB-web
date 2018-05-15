@@ -3,18 +3,15 @@ import api, { parseSettings } from '../../../services/api';
 import { saveToken, getToken } from '../../../utils/localStorage';
 import { Actions, Types } from './reducer';
 
-export function* login({ data }) {
-  console.log(data);
+export function* fetchContentList() {
   try {
-    const response = yield api.post('http://localhost:8000/user/login', data);
+    const response = yield api.get('http://localhost:8000/sale/sales');
     console.log(response);
-    saveToken(response);
-    yield put(Actions.loginSuccess(response));
+    yield put(Actions.fetchContentListSuccess(response));
   } catch (error) {
-    yield put(Actions.loginFailure('Login Failure'));
+    yield put(Actions.fetchContentListFailure('Fetch Content List Failure'));
   }
 }
-
 export default function* () {
-  yield takeLatest(Types.LOGIN_REQUEST, login);
+  yield takeLatest(Types.FETCH_CONTENT_LIST_REQUEST, fetchContentList);
 }

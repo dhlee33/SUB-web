@@ -55,7 +55,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 const mapStateToProps = (state) => ({
-  errorMessage: state.Loginreducer.errorMessage,
+  errorMessage: state.LoginReducer.errorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
