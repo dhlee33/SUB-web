@@ -86,7 +86,7 @@ class ContentList extends Component <Props> {
             </Pagination>
           </Col>
           <Col sm={2}>
-            <Button href="/createcontent">글 등록</Button>
+            <Button href="/newpost">글 등록</Button>
           </Col>
         </Row>
       </Container>
