@@ -1,20 +1,22 @@
 // @flow
 
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { usernameSelecter, Authenticated } from '../components/pages/LoginPage/selector';
 
-class UpperBar extends Component {
+type Props = {
+  username: string,
+  isAuthenticated: boolean,
+}
+
+class UpperBar extends Component <Props> {
   constructor(props) {
     super(props);
     this.state = {
       isAuthenticated: false,
       nickname: '로그인 해주세요',
     };
-    this.login = this.login.bind(this);
-  }
-
-  login() {
-    this.setState({ isAuthenticated: true });
   }
 
   render() {
@@ -25,7 +27,7 @@ class UpperBar extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {this.state.isAuthenticated ?
+              {this.props.isAuthenticated ?
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
                   별명
@@ -55,5 +57,10 @@ class UpperBar extends Component {
   }
 }
 
-export default UpperBar;
+const mapStateToProps = (state) => ({
+  username: usernameSelecter(state),
+  isAuthenticated: Authenticated(state),
+});
+
+export default connect(mapStateToProps)(UpperBar);
 
