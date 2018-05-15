@@ -14,7 +14,6 @@ class UpperBar extends Component <Props> {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: false,
       nickname: '로그인 해주세요',
     };
   }

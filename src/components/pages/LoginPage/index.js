@@ -18,6 +18,12 @@ class LoginPage extends React.Component <Props> {
       username: '',
       password: '',
     };
+    this.login = this.login.bind(this);
+  }
+
+  login() {
+    this.props.login(this.state);
+    window.location.replace('/');
   }
   render() {
     return (
@@ -42,7 +48,7 @@ class LoginPage extends React.Component <Props> {
         <br />
         <Row>
           <Col sm={7}>
-            <Button onClick={() => this.props.login(this.state)}>LOGIN</Button>
+            <Button onClick={this.login}>LOGIN</Button>
           </Col>
         </Row>
       </Container>
