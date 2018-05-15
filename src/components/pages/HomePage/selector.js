@@ -1,2 +1,1 @@
-export const usernameSelecter = state => state.Loginreducer.username;
-export const Authenticated = state => state.isAuthenticated;
+export const saleContentSelector = state => state.HomePageReducer.saleContent;

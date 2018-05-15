@@ -3,11 +3,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { Container, Pagination, PaginationLink, PaginationItem, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, Row, Col, Button } from 'reactstrap';
+import { Container, Pagination, PaginationLink, PaginationItem, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, Row, Col, Button, Card, CardHeader, CardBody } from 'reactstrap';
+import { bindActionCreators } from 'redux';
+import { Actions } from './reducer';
+import { saleContentSelector } from './selector'
 
 type Props = {
   username: string,
   isAuthenticated: boolean,
+  fetchContent: Function,
+  saleContent: Array,
 }
 
 class ContentList extends Component <Props> {
@@ -17,6 +22,7 @@ class ContentList extends Component <Props> {
       activeTab: '1',
     };
     this.toggle = this.toggle.bind(this);
+    this.props.fetchContent();
   }
 
   toggle(tab) {
@@ -49,6 +55,21 @@ class ContentList extends Component <Props> {
           </NavItem>
         </Nav>
         <br />
+        <br />
+        {this.props.saleContent.map(s =>
+          <div><Card>
+            <CardHeader>
+              {s.bookTitle}
+            </CardHeader>
+            <CardBody>
+              <Row>
+                <Col><image>book picture</image></Col>
+                <Col>{s.price} 원</Col>
+              </Row>
+            </CardBody>
+          </Card>
+            <br />
+          </div>)}
         <Row>
           <Col sm={10}>
             <Pagination>
@@ -95,7 +116,12 @@ class ContentList extends Component <Props> {
 }
 
 const mapStateToProps = (state) => ({
+  saleContent: saleContentSelector(state),
 });
 
-export default connect(mapStateToProps)(ContentList);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  fetchContent: Actions.fetchContentListRequest,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentList);
 

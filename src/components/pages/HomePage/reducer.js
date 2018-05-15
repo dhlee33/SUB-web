@@ -6,43 +6,27 @@ import {
 
 const initialState = {
   isFetching: false,
-  isAuthenticated: !!getToken(),
   errorMessage: '',
-  username: getUsername() || '',
-  userId: getUserId() || '',
-  users: [],
+  saleContent: [],
 };
 
 export const { Types, Creators: Actions } = createActions({
-  loginRequest: ['data'],
-  loginSuccess: ['payload'],
-  loginFailure: ['errorMessage'],
-  logout: null,
+  fetchContentListRequest: ['id'],
+  fetchContentListSuccess: ['payload'],
+  fetchContentListFailure: ['errorMessage'],
 });
 
-export const loginRequest = state =>
-  ({ ...state, isFetching: true, isAuthenticated: false, errorMessage: '' });
-export const loginSuccess = (state, { payload }) => {
-  saveUsername(payload.username);
-  saveUserId(payload.id);
-  console.log(state);
-  return { ...state, isFetching: false, isAuthenticated: true, errorMessage: '', username: payload.username, userId: payload.id };
+const fetchContentListRequest = state => ({ ...state, isFetching: true, errorMessage: '' });
+const fetchContentListSuccess = (state, { payload }) => {
+  console.log(payload);
+  return ({ ...state, isFetching: false, errorMessage: '', saleContent: payload });
 };
-export const loginFailure = (state, { errorMessage }) =>
+const fetchContentListFailure = (state, { errorMessage }) => ({ ...state, isFetching: false, errorMessage });
 
-  ({ ...state, isFetching: false, isAuthenticated: false, errorMessage });
-
-export const logout = (state) => {
-  removeTokens();
-  removeUsername();
-  removeUserId();
-  return { ...state, isFetching: false, isAuthenticated: false, username: '', userId: '' };
-};
 
 const handlers = {
-  [Types.LOGIN_REQUEST]: loginRequest,
-  [Types.LOGIN_SUCCESS]: loginSuccess,
-  [Types.LOGIN_FAILURE]: loginFailure,
-  [Types.LOGOUT]: logout,
+  [Types.FETCH_CONTENT_LIST_REQUEST]: fetchContentListRequest,
+  [Types.FETCH_CONTENT_LIST_SUCCESS]: fetchContentListSuccess,
+  [Types.FETCH_CONTENT_LIST_FAILURE]: fetchContentListFailure,
 };
 export default createReducer(initialState, handlers);
