@@ -23,4 +23,17 @@ export const initialState = fromJS({
 
 export const newPostRequest = (state) =>
   state.mergeDeep({ newPost: { isFetching: true, error: null } });
-  
+
+export const newPostSuccess = (state, { payload }) =>
+  state.mergeDeep({ newPost: { isFetching: false, payload, error: null } });
+
+export const newPostFailure = (state, { error }) =>
+  state.mergeDeep({ newPost: { isFetching: false, error } });
+
+/* ------------- Hookup Reducers To Types ------------- */
+
+export default createReducer(initialState, {
+  [Types.NEW_POST_REQUEST]: newPostRequest,
+  [Types.NEW_POST_SUCCESS]: newPostSuccess,
+  [Types.NEW_POST_FAILURE]: newPostFailure,
+});

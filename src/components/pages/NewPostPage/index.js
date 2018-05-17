@@ -5,19 +5,33 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Container, Row, Col, Input, Button, Form, FormGroup, Label } from 'reactstrap';
 import UpperBar from '../../../containers/UpperBar';
+import { Creators as Actions } from './reducer';
 
 type Props = {
-  login: Function,
-}
+  newPost: (State) => void,
+};
 
 class NewPostPage extends React.Component <Props> {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      title: '',
+      content: '',
+      department: '',
+      bookTitle: '',
+      author: '',
+      publisher: '',
+      price: '',
+      contact: '',
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.newPost(this.state);
+  }
+
   render() {
     return (
       <Container>
@@ -32,26 +46,25 @@ class NewPostPage extends React.Component <Props> {
         <Form>
           <FormGroup>
             <br />
-            <Label for="exampleEmail">책 제목</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Label>책 제목</Label>
+            <Input onChange={({ target }) => this.setState({ bookTitle: target.value })} />
           </FormGroup>
           <FormGroup>
-            <Label for="exampleEmail">저자</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Label>저자</Label>
+            <Input onChange={({ target }) => this.setState({ author: target.value })} />
           </FormGroup>
           <FormGroup>
-            <Label for="exampleEmail">출판사</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Label>출판사</Label>
+            <Input onChange={({ target }) => this.setState({ publisher: target.value })} />
           </FormGroup>
           <FormGroup>
-            <Label for="exampleEmail">해당 단과대</Label>
-            <Input type="select" name="email" id="exampleEmail" placeholder="">
-              <option>단과대 이름</option>
+            <Label>해당 단과대</Label>
+            <Input onChange={({ target }) => this.setState({ department: target.value })} >
             </Input>
           </FormGroup>
           <FormGroup>
-            <Label for="exampleEmail">가격</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Label>가격</Label>
+            <Input onChange={({ target }) => this.setState({ price: target.value })} />
           </FormGroup>
           <FormGroup>
             <Button>책 사진 추가</Button>
@@ -62,25 +75,26 @@ class NewPostPage extends React.Component <Props> {
         <hr />
         <Form>
           <FormGroup>
-            <Label for="exampleEmail">글 제목</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Label >글 제목</Label>
+            <Input onChange={({ target }) => this.setState({ title: target.value })} />
           </FormGroup>
           <FormGroup>
-            <Label for="exampleEmail">내용</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Label >내용</Label>
+            <Input onChange={({ target }) => this.setState({ content: target.value })} />
           </FormGroup>
           <FormGroup>
-            <Label for="exampleEmail">연락처</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Label>연락처</Label>
+            <Input onChange={({ target }) => this.setState({ conatct: target.value })} />
           </FormGroup>
+          <Button onClick={this.handleSubmit}>등록하기</Button>
         </Form>
-        <Button>등록하기</Button>
       </Container>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+  newPost: Actions.newPostRequest,
 }, dispatch);
 
 const mapStateToProps = (state) => ({

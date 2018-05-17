@@ -23,7 +23,7 @@ class LoginPage extends React.Component <Props> {
 
   login() {
     this.props.login(this.state);
-    window.location.replace('/');
+    //window.location.replace('/');
   }
   render() {
     return (
