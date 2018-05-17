@@ -1,7 +1,8 @@
-import 'whatwg-fetch'
-import { stringify } from 'query-string'
-import merge from 'lodash/merge'
-import { apiUrl } from 'config'
+import 'whatwg-fetch';
+import { stringify } from 'query-string';
+import merge from 'lodash/merge';
+import { apiUrl } from 'config';
+import { getToken } from 'utils/localStorage';
 
 export const checkStatus = (response) => {
   if (response.ok) {
@@ -20,6 +21,10 @@ export const parseSettings = ({ method = 'get', data, locale, ...otherSettings }
     'Content-Type': 'application/json',
     'Accept-Language': locale,
   }
+  const authToken = getToken();
+  if (authToken) {
+    headers.Authorization = `Token ${authToken}`;
+  }
   const settings = {
     body: data ? JSON.stringify(data) : undefined,
     method,
@@ -30,9 +35,10 @@ export const parseSettings = ({ method = 'get', data, locale, ...otherSettings }
 }
 
 export const parseEndpoint = (endpoint, params) => {
-  const url = endpoint.indexOf('http') === 0 ? endpoint : apiUrl + endpoint
-  const querystring = params ? `?${stringify(params)}` : ''
-  return `${url}${querystring}`
+  const baseUrl = 'http://localhost:8000/';
+  const url = `${baseUrl}${endpoint}`;
+  const querystring = params ? `?${stringify(params)}` : '';
+  return `${url}${querystring}`;
 }
 
 const api = {}
@@ -56,7 +62,7 @@ api.create = (settings = {}) => ({
   setToken(token) {
     this.settings.headers = {
       ...this.settings.headers,
-      Authorization: `Bearer ${token}`,
+      Authorization: `Token ${token}`,
     }
   },
 

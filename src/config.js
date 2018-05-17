@@ -3,7 +3,7 @@ const merge = require('lodash/merge')
 const config = {
   all: {
     env: process.env.NODE_ENV || 'development',
-    apiUrl: 'https://jsonplaceholder.typicode.com',
+    apiUrl: 'https://localhost:8000/',
   },
   test: {},
   development: {},

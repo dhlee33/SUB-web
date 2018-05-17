@@ -5,7 +5,7 @@ import { Actions, Types } from './reducer';
 
 export function* fetchContentList() {
   try {
-    const response = yield api.get('http://localhost:8000/sale/sales');
+    const response = yield api.get('sale/sales');
     console.log(response);
     yield put(Actions.fetchContentListSuccess(response));
   } catch (error) {

@@ -6,7 +6,7 @@ import { Actions, Types } from './reducer';
 export function* login({ data }) {
   console.log(data);
   try {
-    const response = yield api.post('http://localhost:8000/user/login', data);
+    const response = yield api.post('user/login', data);
     console.log(response);
     saveToken(response);
     yield put(Actions.loginSuccess(response));
