@@ -40,7 +40,8 @@
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
     "react/require-default-props": 0,
-    "react/forbid-prop-types": 0,
+    "react/prop-types": [2, { "ignore": ["navigation"] }],
+    "react/forbid-prop-types": [1, { "forbid": ["any", "array"] }],
     "react/no-unused-prop-types": 0,
     "react/jsx-filename-extension": [2, {"extensions": [".js", ".jsx"]}],
     "no-unused-vars-rest/no-unused-vars": [2, {"ignoreDestructuredVarsWithRest": true}]

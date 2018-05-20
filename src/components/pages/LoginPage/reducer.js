@@ -10,7 +10,6 @@ const initialState = {
   errorMessage: '',
   username: getUsername() || '',
   userId: getUserId() || '',
-  users: [],
 };
 
 export const { Types, Creators: Actions } = createActions({
