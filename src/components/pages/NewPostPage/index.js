@@ -35,7 +35,6 @@ class NewPostPage extends React.Component <Props> {
   render() {
     return (
       <Container>
-        <UpperBar />
         <br />
         <h1>글 작성</h1>
         <hr />

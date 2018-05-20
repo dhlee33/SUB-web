@@ -12,6 +12,7 @@ export function* login({ data }) {
   try {
     const response = yield api.post('user/login', data);
     saveToken(response);
+    window.location.replace('/');
     yield put(Actions.loginSuccess(response));
     history.back();
   } catch (error) {

@@ -92,6 +92,7 @@
     "reactstrap": "^5.0.0-beta.3",
     "redux": "^3.6.0",
     "redux-form": "^6.4.3",
+    "redux-logger": "^3.0.6",
     "redux-saga": "^0.14.1",
     "redux-wait-for-action": "0.0.7",
     "reduxsauce": "^0.7.0",

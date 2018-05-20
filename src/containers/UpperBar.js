@@ -16,6 +16,7 @@ class UpperBar extends React.Component <Props> {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">
