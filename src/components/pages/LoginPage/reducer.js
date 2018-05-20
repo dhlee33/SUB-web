@@ -1,43 +1,32 @@
 import { createActions, createReducer } from 'reduxsauce';
-import {
-  getToken, getUserId, getUsername, removeTokens, removeUsername,
-  saveUsername, saveUserId, removeUserId,
-} from '../../../utils/localStorage';
-
-const initialState = {
-  isFetching: false,
-  isAuthenticated: !!getToken(),
-  errorMessage: '',
-  username: getUsername() || '',
-  userId: getUserId() || '',
-  users: [],
-};
+import { fromJS } from 'immutable';
 
 export const { Types, Creators: Actions } = createActions({
   loginRequest: ['data'],
   loginSuccess: ['payload'],
-  loginFailure: ['errorMessage'],
+  loginFailure: ['error'],
   logout: null,
 });
 
+export const initialState = fromJS({
+  login: {
+    isFetching: false,
+    payload: null,
+    error: null,
+  },
+});
+
 export const loginRequest = state =>
-  ({ ...state, isFetching: true, isAuthenticated: false, errorMessage: '' });
-export const loginSuccess = (state, { payload }) => {
-  saveUsername(payload.username);
-  saveUserId(payload.id);
-  console.log(state);
-  return { ...state, isFetching: false, isAuthenticated: true, errorMessage: '', username: payload.username, userId: payload.id };
-};
-export const loginFailure = (state, { errorMessage }) =>
+  state.mergeDeep({ login: { isFetching: true, error: null } });
 
-  ({ ...state, isFetching: false, isAuthenticated: false, errorMessage });
+export const loginSuccess = (state, { payload }) =>
+  state.mergeDeep({ login: { isFetching: false, payload, error: null } });
 
-export const logout = (state) => {
-  removeTokens();
-  removeUsername();
-  removeUserId();
-  return { ...state, isFetching: false, isAuthenticated: false, username: '', userId: '' };
-};
+export const loginFailure = (state, { error }) =>
+  state.mergeDeep({ login: { isFetching: false, payload: null, error } });
+
+export const logout = (state) =>
+  state.mergeDeep({ login: { isFetching: false, payload: null } });
 
 const handlers = {
   [Types.LOGIN_REQUEST]: loginRequest,
@@ -45,4 +34,5 @@ const handlers = {
   [Types.LOGIN_FAILURE]: loginFailure,
   [Types.LOGOUT]: logout,
 };
+
 export default createReducer(initialState, handlers);

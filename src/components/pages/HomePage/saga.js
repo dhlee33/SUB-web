@@ -1,17 +1,20 @@
-import { call, put, take, select, fork, takeLatest } from 'redux-saga/effects';
-import api, { parseSettings } from '../../../services/api';
-import { saveToken, getToken } from '../../../utils/localStorage';
+import { take, call, put, takeLatest } from 'redux-saga/effects';
+import api from '../../../services/api';
 import { Actions, Types } from './reducer';
+
+export function* watchFetchContentList() {
+  yield takeLatest(Types.CONTENT_LIST_REQUEST, fetchContentList);
+}
 
 export function* fetchContentList() {
   try {
     const response = yield api.get('sale/sales');
-    console.log(response);
-    yield put(Actions.fetchContentListSuccess(response));
+    yield put(Actions.contentListSuccess(response));
   } catch (error) {
-    yield put(Actions.fetchContentListFailure('Fetch Content List Failure'));
+    yield put(Actions.contentListFailure(error));
   }
 }
-export default function* () {
-  yield takeLatest(Types.FETCH_CONTENT_LIST_REQUEST, fetchContentList);
-}
+
+export default [
+  watchFetchContentList,
+];

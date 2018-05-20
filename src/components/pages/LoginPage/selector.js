@@ -1,2 +1,12 @@
-export const usernameSelecter = state => state.LoginReducer.username;
-export const Authenticated = state => state.isAuthenticated;
+import { createSelector } from 'reselect';
+
+const makeSelectRoute = () => (state) => state.routing;
+
+const makeSelectPrev = () => createSelector(
+  makeSelectRoute(),
+  (route) => route.locationBeforeTransitions,
+);
+
+export {
+  makeSelectPrev,
+};

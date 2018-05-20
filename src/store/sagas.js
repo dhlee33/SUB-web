@@ -5,7 +5,11 @@ import NewPostSaga from '../components/pages/NewPostPage/saga';
 
 const req = require.context('.', true, /\.\/.+\/sagas\.js$/);
 
-const sagas = [...HomePageSaga, ...LoginSaga, ...NewPostSaga];
+const sagas = [
+  ...HomePageSaga,
+  ...LoginSaga,
+  ...NewPostSaga,
+];
 
 req.keys().forEach((key) => {
   sagas.push(req(key).default);
