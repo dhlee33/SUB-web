@@ -1,37 +1,38 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
-import createSagaMiddleware from 'redux-saga'
-import middlewares from './middlewares'
-import reducer from './reducer'
-import sagas from './sagas'
+import { createStore, applyMiddleware, compose } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
+import middlewares from './middlewares';
+import reducer from './reducer';
+import sagas from './sagas';
 
 const configureStore = (initialState, history) => {
-  const hasWindow = typeof window !== 'undefined'
-  const sagaMiddleware = createSagaMiddleware()
+  const hasWindow = typeof window !== 'undefined';
+  const sagaMiddleware = createSagaMiddleware();
 
   const finalCreateStore = compose(
-    applyMiddleware(...middlewares, sagaMiddleware, routerMiddleware(history)),
+    applyMiddleware(...middlewares, sagaMiddleware, routerMiddleware(history), logger),
     hasWindow && window.devToolsExtension ? window.devToolsExtension() : (f) => f
-  )(createStore)
+  )(createStore);
 
-  const store = finalCreateStore(reducer, initialState)
-  let sagaTask = sagaMiddleware.run(sagas)
+  const store = finalCreateStore(reducer, initialState);
+  let sagaTask = sagaMiddleware.run(sagas);
 
   if (module.hot) {
     module.hot.accept('./reducer', () => {
-      const nextReducer = require('./reducer').default
-      store.replaceReducer(nextReducer)
-    })
+      const nextReducer = require('./reducer').default;
+      store.replaceReducer(nextReducer);
+    });
     module.hot.accept('./sagas', () => {
-      const nextSagas = require('./sagas').default
-      sagaTask.cancel()
+      const nextSagas = require('./sagas').default;
+      sagaTask.cancel();
       sagaTask.done.then(() => {
-        sagaTask = sagaMiddleware.run(nextSagas)
-      })
-    })
+        sagaTask = sagaMiddleware.run(nextSagas);
+      });
+    });
   }
 
-  return store
-}
+  return store;
+};
 
-export default configureStore
+export default configureStore;
