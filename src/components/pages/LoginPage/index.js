@@ -26,9 +26,9 @@ class LoginPage extends React.Component <Props> {
     //window.location.replace('/');
   }
   render() {
+    console.log(this.props);
     return (
       <Container>
-        <UpperBar />
         <br />
         <h1>
           로그인 하세요
