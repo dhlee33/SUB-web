@@ -11,10 +11,10 @@ export function* watchLoginRequest() {
 export function* login({ data }) {
   try {
     const response = yield api.post('user/login', data);
-    saveToken(response);
-    window.location.replace('/');
     yield put(Actions.loginSuccess(response));
-    history.back();
+    saveToken(response);
+    yield call(profile);
+    window.location.replace('/');
   } catch (error) {
     yield put(Actions.loginFailure(error));
   }
@@ -27,7 +27,21 @@ export function* watchLogout() {
   }
 }
 
+export function* watchProfileRequest() {
+  yield takeLatest(Types.PROFILE_REQUEST, profile);
+}
+
+export function* profile() {
+  try {
+    const response = yield api.get('user/profile');
+    yield put(Actions.profileSuccess(response));
+  } catch (error) {
+    yield put(Actions.profileFailure(error));
+  }
+}
+
 export default [
   watchLoginRequest,
   watchLogout,
+  watchProfileRequest,
 ];

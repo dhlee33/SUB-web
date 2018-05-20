@@ -16,7 +16,7 @@ export const initialState = fromJS({
 });
 
 
-export const contentListRequest = state =>
+export const contentListRequest = (state) =>
   state.mergeDeep({ contentList: { isFetching: true, error: null } });
 
 export const contentListSuccess = (state, { saleContent }) =>
