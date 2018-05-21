@@ -1,5 +1,4 @@
 // @flow
-
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,8 +7,8 @@ import UpperBar from '../../../containers/UpperBar';
 import { Actions } from './reducer';
 
 type Props = {
-  login: Function,
-}
+  login: (State) => void,
+};
 
 class LoginPage extends React.Component <Props> {
   constructor(props) {
@@ -18,14 +17,14 @@ class LoginPage extends React.Component <Props> {
       username: '',
       password: '',
     };
-    this.login = this.login.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  login(e) {
-    e.preventDefault();
+  handleLogin(event) {
+    event.preventDefault();
     this.props.login(this.state);
-    // window.location.replace('/');
   }
+
   render() {
     return (
       <Container>
@@ -34,7 +33,7 @@ class LoginPage extends React.Component <Props> {
           로그인 하세요
         </h1>
         <hr />
-        <Form onSubmit={this.login}>
+        <Form onSubmit={this.handleLogin}>
           <Row>
             <Col sm={7}>
               <Input placeholder="USERNAME" onChange={e => this.setState({ username: e.target.value })} />
@@ -63,7 +62,6 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 const mapStateToProps = (state) => ({
-  errorMessage: state.LoginReducer.errorMessage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

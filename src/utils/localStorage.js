@@ -21,10 +21,7 @@ export const getToken = () => get(KEYS.accessToken);
 
 export const saveToken = payload => set(KEYS.accessToken, payload.token);
 
-export const removeTokens = () => {
-  remove(KEYS.accessToken);
-  remove(KEYS.refreshToken);
-};
+export const removeToken = () => remove(KEYS.accessToken);
 
 export const getUsername = () => get(KEYS.username);
 
