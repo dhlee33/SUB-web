@@ -9,7 +9,7 @@ export function* watchNewPostRequest() {
 
 export function* newPost({ data }) {
   try {
-    const response = yield api.post('sale/sales', data);
+    const response = yield api.post('transaction/sales', data);
     yield put(Actions.newPostSuccess(response));
     window.location.replace('/');
   } catch (error) {

@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Container} from 'reactstrap';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 import UpperBar from '../containers/UpperBar';
 import theme from './themes/default';
+import NewPostPage from './pages/NewPostPage';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import routes from '../routes';
+
 
 injectGlobal`
   body {
@@ -16,7 +22,7 @@ const App = ({ children }) => {
     <ThemeProvider theme={theme}>
       <Container>
         <UpperBar />
-        {children}
+        {routes}
       </Container>
     </ThemeProvider>
   );

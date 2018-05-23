@@ -6,9 +6,9 @@ export function* watchFetchContentList() {
   yield takeLatest(Types.CONTENT_LIST_REQUEST, fetchContentList);
 }
 
-export function* fetchContentList() {
+export function* fetchContentList({ params }) {
   try {
-    const response = yield api.get('sale/sales');
+    const response = yield api.get('transaction/sales', params);
     yield put(Actions.contentListSuccess(response));
   } catch (error) {
     yield put(Actions.contentListFailure(error));

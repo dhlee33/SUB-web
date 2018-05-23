@@ -8,6 +8,7 @@ import { Router, useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from 'store/configure';
 import 'bootstrap/dist/css/bootstrap.css';
+import App from './components/App';
 
 import routes from 'routes';
 
@@ -18,7 +19,7 @@ const root = document.getElementById('app');
 
 const renderApp = () => (
   <Provider store={store}>
-    <Router key={Math.random()} history={history} routes={routes} />
+    <App />
   </Provider>
 );
 
