@@ -26,6 +26,7 @@ class LoginPage extends React.Component <Props> {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Container>
         <br />

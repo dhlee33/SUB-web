@@ -3,14 +3,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import classnames from 'classnames';
+import { withRouter } from 'react-router';
+import qs from 'qs';
 import { Container, Pagination, PaginationLink, PaginationItem, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, Row, Col, Button, Card, CardHeader, CardBody } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { Actions } from './reducer';
-import { makeSelectContentList } from './selector'
+import { makeSelectContentList, makeSelectListPage } from './selector';
 
 type Props = {
   fetchContent: Function,
   saleContent: Array,
+  location: Object,
 };
 
 class ContentList extends Component <Props> {
@@ -18,12 +21,15 @@ class ContentList extends Component <Props> {
     super(props);
     this.state = {
       activeTab: '1',
+      page: 1,
     };
     this.toggle = this.toggle.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchContent();
+  componentWillMount() {
+    const search = qs.parse(this.props.location.search.replace('?', ''));
+    this.props.fetchContent({page: 1, ...search});
+    this.setState(search);
   }
 
   toggle(tab) {
@@ -35,6 +41,8 @@ class ContentList extends Component <Props> {
   }
 
   render() {
+    console.log(this.props);
+    console.log(this.state);
     return (
       <Container>
         <Nav tabs>
@@ -121,11 +129,12 @@ class ContentList extends Component <Props> {
 
 const mapStateToProps = createStructuredSelector({
   saleContent: makeSelectContentList(),
+  page: makeSelectListPage(),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchContent: Actions.contentListRequest,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ContentList));
 
