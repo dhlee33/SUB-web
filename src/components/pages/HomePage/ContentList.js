@@ -95,8 +95,8 @@ class ContentList extends Component <Props> {
         <Row>
           <Col sm={10}>
             <Paginator
-              total={this.props.page}
-              current={this.state.page}
+              total={+this.props.page}
+              current={+this.state.page}
               search={search}
             />
           </Col>
