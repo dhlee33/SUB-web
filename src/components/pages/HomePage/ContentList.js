@@ -11,6 +11,8 @@ import { bindActionCreators } from 'redux';
 import { Actions } from './reducer';
 import { makeSelectContentList, makeSelectListPage } from './selector';
 import Paginator from '../../Paginator';
+import './ContentList.css';
+
 
 type Props = {
   fetchContent: Function,
@@ -79,9 +81,9 @@ class ContentList extends Component <Props> {
         {!!this.props.saleContent &&
           this.props.saleContent.toJS().map(s =>
             <div key={s.id}>
-              <Card style={{cursor: 'pointer'}} onClick={() => this.props.history.push(`/${s.id}`)}>
-                <CardHeader>
-                  <h4>{s.title}</h4><span><i className="fa fa-cab" /> {moment(s.updated).format("YYYY/MM/DD HH:mm")}</span>
+              <Card>
+                <CardHeader className="contentCardHeader" onClick={() => this.props.history.push(`/${s.id}`)}>
+                  <h4>{s.title}</h4><span><i className="fa fa-cab" /> {moment(s.updated).format('YYYY/MM/DD HH:mm')}</span>
                 </CardHeader>
                 <CardBody>
                   <Row>
