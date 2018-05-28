@@ -1,0 +1,8 @@
+.contentCardHeader {
+  cursor: pointer;
+}
+
+.contentCardHeader:hover {
+  background-color: lightgray;
+}
+
