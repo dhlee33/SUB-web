@@ -10,8 +10,9 @@ import { Container, Pagination, PaginationLink, PaginationItem, Nav, NavItem, Na
 import { bindActionCreators } from 'redux';
 import { Actions } from './reducer';
 import { makeSelectContentList, makeSelectListPage } from './selector';
-import Paginator from '../../Paginator';
+import Paginator from '../../../containers/Paginator';
 import './ContentList.css';
+import Search from '../../../containers/Search';
 
 
 type Props = {
@@ -28,6 +29,7 @@ class ContentList extends Component <Props> {
       page: 1,
     };
     this.toggle = this.toggle.bind(this);
+    this.search = this.search.bind(this);
   }
 
   componentWillMount() {
@@ -52,12 +54,19 @@ class ContentList extends Component <Props> {
     }
   }
 
+  search(query) {
+    console.log(query);
+    const search = qs.parse(this.props.location.search.replace('?', ''));
+    this.props.history.push({ search: qs.stringify({ ...search, ...query }) });
+  }
+
   render() {
     console.log(this.props);
     console.log(this.state);
     const search = qs.parse(this.props.location.search.replace('?', ''));
     return (
       <Container>
+        <Search searchFunction={this.search} />
         <Nav tabs>
           <NavItem>
             <NavLink
