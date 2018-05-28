@@ -94,7 +94,7 @@ class ContentList extends Component <Props> {
               <Card>
                 <CardHeader
                   className="contentCardHeader"
-                  onClick={() => this.props.history.push(`/${s.id}`)}
+                  onClick={() => this.props.history.push(`/saledetail/${s.id}`)}
                 >
                   <h4>{s.title}</h4><span><i className="fa fa-cab" /> {moment(s.updated).format('YYYY/MM/DD HH:mm')}</span>
                 </CardHeader>

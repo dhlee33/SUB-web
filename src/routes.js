@@ -5,6 +5,7 @@ import App from 'components/App';
 import { HomePage } from 'components';
 import LoginPage from 'components/pages/LoginPage';
 import NewPostPage from 'components/pages/NewPostPage';
+import ContentDetailPage from 'components/pages/ContentDetailPage';
 
 const routes = (
   <Router basename="/">
@@ -12,6 +13,7 @@ const routes = (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/newpost" component={NewPostPage} />
+      <Route exact path="/saledetail/:id" component={ContentDetailPage} />
     </Switch>
   </Router>
 );
