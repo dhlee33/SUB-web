@@ -66,7 +66,7 @@ class ContentList extends Component <Props> {
     const search = qs.parse(this.props.location.search.replace('?', ''));
     return (
       <Container>
-        <Search searchFunction={this.search} />
+        <Search searchFunction={this.search} query={this.state.query}/>
         <Nav tabs>
           <NavItem>
             <NavLink

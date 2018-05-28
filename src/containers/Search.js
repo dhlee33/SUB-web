@@ -11,7 +11,7 @@ class Search extends Component <Props> {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      query: this.props.query || '',
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -34,7 +34,7 @@ class Search extends Component <Props> {
         <Col sm={5}>
           <Form onSubmit={e => this.onSubmit(e)}>
           <InputGroup>
-            <Input onChange={e => this.onInputChange(e)}/>
+            <Input value={this.state.query} onChange={e => this.onInputChange(e)}/>
             <Button type="submit">검색</Button>
           </InputGroup>
           </Form>
