@@ -5,7 +5,7 @@ import { Row, Col, InputGroup, Input, Button, Form } from 'reactstrap';
 
 type Props = {
   searchFunction: Function;
-}
+};
 
 class Search extends Component <Props> {
   constructor(props) {
