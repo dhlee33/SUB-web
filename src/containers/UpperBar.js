@@ -1,10 +1,16 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-//import { usernameSelecter, Authenticated } from '../components/pages/LoginPage/selector';
+import { makeSelectIsAuthenticated, makeSelectUserName } from '../components/pages/LoginPage/selector';
+import { bindActionCreators } from 'redux';
+import { Actions } from '../components/pages/LoginPage/reducer';
 
 type Props = {
+  isAuthenticated: boolean,
+  userName: string,
+  logout: Function,
 };
 
 class UpperBar extends React.Component <Props> {
@@ -23,29 +29,35 @@ class UpperBar extends React.Component <Props> {
           <NavbarBrand href="/"><b>SNU-USEDBOOK</b></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              {/*this.props.isAuthenticated ?
+            {this.props.isAuthenticated ?
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href={'/newpost'}>글 등록</NavLink>
+                </NavItem>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
-                  별명
-                </DropdownToggle>
+                    {this.props.userName}
+                  </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
-                    Option 1
-                  </DropdownItem>
+                      Option 1
+                    </DropdownItem>
                     <DropdownItem>
-                    Option 2
-                  </DropdownItem>
+                      Option 2
+                    </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem>
-                    LOGOUT
-                  </DropdownItem>
+                    <DropdownItem onClick={this.props.logout}>
+                      LOGOUT
+                    </DropdownItem>
                   </DropdownMenu>
-              </UncontrolledDropdown> :*/}
+                </UncontrolledDropdown>
+              </Nav> :
+              <Nav className="ml-auto" navbar>
                 <NavItem>
                   <NavLink href={'/login'}>LOGIN</NavLink>
                 </NavItem>
-            </Nav>
+              </Nav>
+              }
           </Collapse>
         </Navbar>
       </div>
@@ -53,8 +65,14 @@ class UpperBar extends React.Component <Props> {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = createStructuredSelector({
+  isAuthenticated: makeSelectIsAuthenticated(),
+  userName: makeSelectUserName(),
 });
 
-export default connect(mapStateToProps)(UpperBar);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  logout: Actions.logout,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpperBar);
 

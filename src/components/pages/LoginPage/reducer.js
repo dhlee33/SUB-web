@@ -1,5 +1,6 @@
 import { createActions, createReducer } from 'reduxsauce';
 import { fromJS } from 'immutable';
+import { getToken, removeToken } from '../../../utils/localStorage';
 
 export const { Types, Creators: Actions } = createActions({
   loginRequest: ['data'],
@@ -18,6 +19,7 @@ export const initialState = fromJS({
     error: null,
   },
   user: {
+    isAuthenticated: !!getToken(),
     isFetching: false,
     profile: null,
     error: null,
@@ -33,14 +35,16 @@ export const loginSuccess = (state, { payload }) =>
 export const loginFailure = (state, { error }) =>
   state.mergeDeep({ login: { isFetching: false, payload: null, error } });
 
-export const logout = (state) =>
-  state.mergeDeep({ login: { isFetching: false, payload: null }, user: { profile: null } });
+export const logout = (state) => {
+  removeToken();
+  return state.mergeDeep({ login: { isFetching: false, payload: null }, user: { profile: null, isAuthenticated: false } });
+}
 
 export const profileRequest = (state) =>
   state.mergeDeep({ user: { isFetching: true, profile: null, error: null } });
 
 export const profileSuccess = (state, { profile }) =>
-  state.mergeDeep({ user: { isFetching: false, profile, error: null } });
+  state.mergeDeep({ user: { isFetching: false, isAuthenticated: true, profile, error: null } });
 
 export const profileFailure = (state, { error }) =>
   state.mergeDeep({ user: { isFetching: false, profile: null, error } });
