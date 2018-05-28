@@ -4,6 +4,7 @@ import { reducer as form } from 'redux-form';
 import LoginReducer from '../components/pages/LoginPage/reducer';
 import HomePageReducer from '../components/pages/HomePage/reducer';
 import NewPostReducer from '../components/pages/NewPostPage/reducer';
+import ContentDetailReducer from '../components/pages/ContentDetailPage/reducer';
 
 const reducers = {
   routing,
@@ -11,6 +12,7 @@ const reducers = {
   LoginReducer,
   HomePageReducer,
   NewPostReducer,
+  ContentDetailReducer,
 };
 
 const req = require.context('.', true, /\.\/.+\/reducer\.js$/);
