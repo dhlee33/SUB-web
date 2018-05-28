@@ -20,7 +20,7 @@ class UpperBar extends React.Component <Props> {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">SNU-USEDBOOK</NavbarBrand>
+          <NavbarBrand href="/"><b>SNU-USEDBOOK</b></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

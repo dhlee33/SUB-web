@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import classnames from 'classnames';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 import qs from 'qs';
 import { Container, Pagination, PaginationLink, PaginationItem, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, Row, Col, Button, Card, CardHeader, CardBody } from 'reactstrap';
 import { bindActionCreators } from 'redux';
@@ -78,14 +79,17 @@ class ContentList extends Component <Props> {
         {!!this.props.saleContent &&
           this.props.saleContent.toJS().map(s =>
             <div key={s.id}>
-              <Card>
+              <Card style={{cursor: 'pointer'}} onClick={() => this.props.history.push(`/${s.id}`)}>
                 <CardHeader>
-                  {s.bookTitle}
+                  <h4>{s.title}</h4><span><i className="fa fa-cab" /> {moment(s.updated).format("YYYY/MM/DD HH:mm")}</span>
                 </CardHeader>
                 <CardBody>
                   <Row>
-                    <Col>book picture</Col>
-                    <Col>{s.price} 원</Col>
+                    <Col><img src="https://images-na.ssl-images-amazon.com/images/I/51rPLfOvqxL._SX376_BO1,204,203,200_.jpg" alt="BOOKIMG" width="200px" /></Col>
+                    <Col>
+                      <p>책 제목: {s.bookTitle}</p>
+                      <p>가격: {s.price} 원</p>
+                    </Col>
                   </Row>
                 </CardBody>
               </Card>
@@ -95,8 +99,8 @@ class ContentList extends Component <Props> {
         <Row>
           <Col sm={10}>
             <Paginator
-              total={this.props.page}
-              current={this.state.page}
+              total={+this.props.page}
+              current={+this.state.page}
               search={search}
             />
           </Col>
