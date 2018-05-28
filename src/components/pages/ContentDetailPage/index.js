@@ -31,7 +31,6 @@ class ContentDetailPage extends React.Component <Props> {
 
 
   render() {
-    console.log(this.props);
     const saleContent = this.props.saleContent.toJS();
     return (
       <Container>
