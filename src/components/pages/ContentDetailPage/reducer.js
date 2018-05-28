@@ -19,8 +19,7 @@ export const initialState = fromJS({
 export const contentDetailRequest = (state) =>
   state.mergeDeep({ contentDetail: { isFetching: true, error: null } });
 
-export const contentDetailSuccess = (state, { contentDetail }) =>
-  state.mergeDeep({ contentDetail: { isFetching: false, contentDetail: contentDetail.results, error: null }});
+export const contentDetailSuccess = (state, { saleDetail }) => state.mergeDeep({ contentDetail: { isFetching: false, contentDetail: saleDetail, error: null } });
 
 export const contentDetailFailure = (state, { error }) =>
   state.mergeDeep({ contentDetail: { isFetching: false, contentDetail: null, error } });
@@ -28,7 +27,7 @@ export const contentDetailFailure = (state, { error }) =>
 const handlers = {
   [Types.CONTENT_DETAIL_REQUEST]: contentDetailRequest,
   [Types.CONTENT_DETAIL_SUCCESS]: contentDetailSuccess,
-  [Types.CONTENT_DETAIL_SUCCESS]: contentDetailFailure,
+  [Types.CONTENT_DETAIL_FAILURE]: contentDetailFailure,
 };
 
 export default createReducer(initialState, handlers);

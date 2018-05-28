@@ -13,7 +13,7 @@ const routes = (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/newpost" component={NewPostPage} />
-      <Route exact path="/contentdetail/:id" component={ContentDetailPage} />
+      <Route exact path="/saledetail/:id" component={ContentDetailPage} />
     </Switch>
   </Router>
 );
