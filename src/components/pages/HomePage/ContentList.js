@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import qs from 'qs';
 import { Container, Pagination, PaginationLink, PaginationItem, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, Row, Col, Button, Card, CardHeader, CardBody } from 'reactstrap';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { Actions } from './reducer';
 import { makeSelectContentList, makeSelectListPage } from './selector';
@@ -55,18 +56,18 @@ class ContentList extends Component <Props> {
   }
 
   search(query) {
-    console.log(query);
     const search = qs.parse(this.props.location.search.replace('?', ''));
-    this.props.history.push({ search: qs.stringify({ ...search, ...query }) });
+    this.props.history.push({ search: qs.stringify({ query: search.query, ...query }) });
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
     const search = qs.parse(this.props.location.search.replace('?', ''));
     return (
       <Container>
-        <Search searchFunction={this.search} query={this.state.query}/>
+        <Search
+          searchFunction={this.search}
+          query={this.state.query}
+        />
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -91,7 +92,10 @@ class ContentList extends Component <Props> {
           this.props.saleContent.toJS().map(s =>
             <div key={s.id}>
               <Card>
-                <CardHeader className="contentCardHeader" onClick={() => this.props.history.push(`/${s.id}`)}>
+                <CardHeader
+                  className="contentCardHeader"
+                  onClick={() => this.props.history.push(`/${s.id}`)}
+                >
                   <h4>{s.title}</h4><span><i className="fa fa-cab" /> {moment(s.updated).format('YYYY/MM/DD HH:mm')}</span>
                 </CardHeader>
                 <CardBody>

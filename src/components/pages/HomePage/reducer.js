@@ -21,7 +21,7 @@ export const contentListRequest = (state) =>
   state.mergeDeep({ contentList: { isFetching: true, error: null } });
 
 export const contentListSuccess = (state, { saleContent }) =>
-  state.mergeDeep({ contentList: { isFetching: false, saleContent: saleContent.results, page: Math.ceil(saleContent.count / 10), error: null } });
+  state.merge({ contentList: { isFetching: false, saleContent: saleContent.results, page: Math.ceil(saleContent.count / 10), error: null } });
 
 export const contentListFailure = (state, { error }) =>
   state.mergeDeep({ contentList: { isFetching: false, saleContent: null, error } });
