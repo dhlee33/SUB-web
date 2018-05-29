@@ -54,6 +54,7 @@ class LoginPage extends React.Component <Props, State> {
           <Row>
             <Col sm={7}>
               <Button type="submit">LOGIN</Button>
+              <Button color="link" href="/signup">회원가입</Button>
             </Col>
           </Row>
         </Form>
