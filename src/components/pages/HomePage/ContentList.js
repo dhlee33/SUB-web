@@ -93,14 +93,14 @@ class ContentList extends Component <Props> {
         <br />
         {!!this.props.saleContent &&
           this.props.saleContent.toJS().map(s =>
-            <div key={s.id} style={{display: 'flex', justifyContent: 'center'}}>
+            <div key={s.id} style={{display: 'flex', justifyContent: 'center', marginBottom: '30px'}}>
               <Card className="contentCard" style={{width: '90%'}}>
                 <CardHeader className="contentCardHeader">
                   <h4>{s.title}</h4>
                   <span>
                     <FaUser />&nbsp;{_.get(s.user, 'nickname')}&nbsp;&nbsp;
                   </span>
-                  <span style={{ alignSelf: 'flex-end' }}>
+                  <span>
                     <FaCalendarO />&nbsp;{moment(s.updated).format('YYYY/MM/DD HH:mm')}
                   </span>
                 </CardHeader>
@@ -118,7 +118,6 @@ class ContentList extends Component <Props> {
                   </Row>
                 </CardBody>
               </Card>
-              <br />
             </div>
           )}
         <Row>
