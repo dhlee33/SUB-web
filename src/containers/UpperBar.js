@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectProfile } from '../components/pages/LoginPage/selector';
 import { Actions } from '../components/pages/LoginPage/reducer';
@@ -54,15 +54,27 @@ class UpperBar extends React.Component <Props> {
               {user &&
                 <React.Fragment>
                   <NavItem>
-                    <NavLink>
+                    <NavLink href="/newpost">
+                      글 등록
+                    </NavLink>
+                  </NavItem>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
                       {user.get('nickname')} 님
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink onClick={this.handleLogout}>
-                      로그아웃
-                    </NavLink>
-                  </NavItem>
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem>
+                        Option 1
+                      </DropdownItem>
+                      <DropdownItem>
+                        Option 2
+                      </DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem onClick={this.handleLogout}>
+                        로그아웃
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
                 </React.Fragment>
               }
               {!user &&

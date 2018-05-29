@@ -3,8 +3,11 @@ import React from 'react';
 import { Container, Row, Col, Input, Button, Form } from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
+import { FaUser, FaCalendarO } from 'react-icons/lib/fa';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment/moment';
+import _ from 'lodash';
 import { Actions } from './reducer';
 import { makeSelectContentDetail } from './selector';
 
@@ -38,6 +41,12 @@ class ContentDetailPage extends React.Component <Props> {
         <h1>
           {saleContent.title}
         </h1>
+        <span>
+          <FaUser />&nbsp;{_.get(saleContent.user, 'nickname')}&nbsp;&nbsp;
+        </span>
+        <span style={{ alignSelf: 'flex-end' }}>
+          <FaCalendarO />&nbsp;{moment(saleContent.updated).format('YYYY/MM/DD HH:mm')}
+        </span>
         <hr />
         <Row >
           <Col sm={6}>
@@ -48,7 +57,6 @@ class ContentDetailPage extends React.Component <Props> {
             <p><b>저자: </b>{saleContent.author}</p>
             <p><b>출판사: </b>{saleContent.publisher}</p>
             <p><b>단과대: </b>{saleContent.department}</p>
-            <p><b>판매자 별명: </b>판매자 별명</p>
             <p><b>연락처: </b>연락처</p>
             <p style={{ color: 'red' }}><b>가격: </b>{saleContent.price}</p>
             <Button color="danger" size="lg">장바구니</Button>

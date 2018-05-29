@@ -1,5 +1,6 @@
 import { createActions, createReducer } from 'reduxsauce';
 import { fromJS } from 'immutable';
+import { getToken, removeToken } from '../../../utils/localStorage';
 
 export const { Types, Creators: Actions } = createActions({
   loginRequest: ['data'],
