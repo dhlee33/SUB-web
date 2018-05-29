@@ -3,12 +3,9 @@
 import store from 'store/dist/store.modern';
 
 const namespace = 'promises';
+
 export const KEYS = {
-  user: 'user',
-  login: 'login',
-  username: 'username',
   accessToken: 'access_token',
-  userId: 'userId',
 };
 
 const get = (key) => store.get(`@${namespace}:${key}`);

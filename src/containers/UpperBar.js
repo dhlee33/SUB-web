@@ -1,50 +1,89 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-//import { usernameSelecter, Authenticated } from '../components/pages/LoginPage/selector';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectProfile } from '../components/pages/LoginPage/selector';
+import { Actions } from '../components/pages/LoginPage/reducer';
 
 type Props = {
+  user: any,
+  logout: () => void,
+};
+
+type State = {
+  isOpen: boolean,
 };
 
 class UpperBar extends React.Component <Props> {
   constructor(props) {
     super(props);
     this.state = {
-      nickname: '로그인 해주세요',
+      isOpen: false,
     };
+    this.toggle = this.toggle.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  toggle() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  handleLogout(event) {
+    event.preventDefault();
+    this.props.logout();
+    window.location.replace('/');
   }
 
   render() {
-    console.log(this.props);
+    const { user } = this.props;
+
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/"><b>SNU-USEDBOOK</b></NavbarBrand>
+        <Navbar
+          color="light"
+          light expand="md"
+        >
+          <NavbarBrand href="/">
+            <b>SNU-USEDBOOK</b>
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {/*this.props.isAuthenticated ?
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                  별명
-                </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                    <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                    LOGOUT
-                  </DropdownItem>
-                  </DropdownMenu>
-              </UncontrolledDropdown> :*/}
+              {user &&
+                <React.Fragment>
+                  <NavItem>
+                    <NavLink href="/newpost">
+                      글 등록
+                    </NavLink>
+                  </NavItem>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
+                      {user.get('nickname')} 님
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem>
+                        Option 1
+                      </DropdownItem>
+                      <DropdownItem>
+                        Option 2
+                      </DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem onClick={this.handleLogout}>
+                        로그아웃
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </React.Fragment>
+              }
+              {!user &&
                 <NavItem>
-                  <NavLink href={'/login'}>LOGIN</NavLink>
+                  <NavLink href="/login">
+                    로그인
+                  </NavLink>
                 </NavItem>
+              }
             </Nav>
           </Collapse>
         </Navbar>
@@ -53,8 +92,12 @@ class UpperBar extends React.Component <Props> {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectProfile(),
 });
 
-export default connect(mapStateToProps)(UpperBar);
+const mapDispatchToProps = (dispatch: Function) => bindActionCreators({
+  logout: Actions.logout,
+}, dispatch);
 
+export default connect(mapStateToProps, mapDispatchToProps)(UpperBar);

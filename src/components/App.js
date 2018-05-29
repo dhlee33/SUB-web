@@ -1,35 +1,44 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Container} from 'reactstrap';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { injectGlobal, ThemeProvider } from 'styled-components';
+// @flow
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Container } from 'reactstrap';
+import { ThemeProvider } from 'styled-components';
+import { bindActionCreators } from 'redux';
+import { Actions } from '../components/pages/LoginPage/reducer';
 import UpperBar from '../containers/UpperBar';
 import theme from './themes/default';
 import NewPostPage from './pages/NewPostPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import routes from '../routes';
+import { getToken } from '../utils/localStorage';
 
+type Props = {
+  children: any,
+  getProfile: () => void,
+}
 
-injectGlobal`
-  body {
-    margin: 0;
+class App extends React.PureComponent<Props> {
+  componentDidMount() {
+    if (getToken()) {
+      this.props.getProfile();
+    }
   }
-`;
 
-const App = ({ children }) => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <UpperBar />
-        {routes}
-      </Container>
-    </ThemeProvider>
-  );
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <Container>
+          <UpperBar />
+          {routes}
+        </Container>
+      </ThemeProvider>
+    );
+  }
 };
 
-App.propTypes = {
-  children: PropTypes.any,
-};
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  getProfile: Actions.profileRequest,
+}, dispatch);
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
