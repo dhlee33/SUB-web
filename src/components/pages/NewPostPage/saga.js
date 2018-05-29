@@ -1,7 +1,6 @@
 import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
 import api from 'services/api';
-import { getToken } from 'utils/localStorage';
 
 export function* watchNewPostRequest() {
   yield takeLatest(Types.NEW_POST_REQUEST, newPost);

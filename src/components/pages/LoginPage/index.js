@@ -10,7 +10,12 @@ type Props = {
   login: (State) => void,
 };
 
-class LoginPage extends React.Component <Props> {
+type State = {
+  username: string,
+  password: string,
+};
+
+class LoginPage extends React.Component <Props, State> {
   constructor(props) {
     super(props);
     this.state = {

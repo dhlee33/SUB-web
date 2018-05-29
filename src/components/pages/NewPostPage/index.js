@@ -1,9 +1,8 @@
 // @flow
-
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Container, Row, Col, Input, Button, Form, FormGroup, Label } from 'reactstrap';
+import { Container, Input, Button, Form, FormGroup, Label } from 'reactstrap';
 import UpperBar from '../../../containers/UpperBar';
 import { Creators as Actions } from './reducer';
 
@@ -11,7 +10,18 @@ type Props = {
   newPost: (State) => void,
 };
 
-class NewPostPage extends React.Component <Props> {
+type State = {
+  title: string,
+  content: string,
+  department: string,
+  bookTitle: string,
+  author: string,
+  publisher: string,
+  price: number,
+  contact: string,
+};
+
+class NewPostPage extends React.Component <Props, State> {
   constructor(props) {
     super(props);
     this.state = {

@@ -16,7 +16,7 @@ type State = {
   isOpen: boolean,
 };
 
-class UpperBar extends React.Component <Props> {
+class UpperBar extends React.Component <Props, State> {
   constructor(props) {
     super(props);
     this.state = {
