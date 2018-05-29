@@ -16,6 +16,20 @@ export function* signUp({ data }) {
   }
 }
 
+export function* watchDuplicateRequest() {
+  yield takeLatest(Types.DUPLICATE_REQUEST, duplicate);
+}
+
+export function* duplicate({ username }) {
+  try {
+    yield api.post('user/duplicate', username);
+    yield put(Actions.duplicateSuccess());
+  } catch (error) {
+    yield put(Actions.duplicateFailure(error.response));
+  }
+}
+
 export default [
   watchSignUpRequest,
+  watchDuplicateRequest,
 ];
