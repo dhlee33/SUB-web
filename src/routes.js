@@ -6,6 +6,7 @@ import { HomePage } from 'components';
 import LoginPage from 'components/pages/LoginPage';
 import NewPostPage from 'components/pages/NewPostPage';
 import ContentDetailPage from 'components/pages/ContentDetailPage';
+import SignUpPage from 'components/pages/SignUpPage';
 
 const routes = (
   <Router basename="/">
@@ -14,6 +15,7 @@ const routes = (
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/newpost" component={NewPostPage} />
       <Route exact path="/saledetail/:id" component={ContentDetailPage} />
+      <Route exact path="/signup" component={SignUpPage} />
     </Switch>
   </Router>
 );
