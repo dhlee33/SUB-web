@@ -15,14 +15,13 @@ import { makeSelectContentList, makeSelectListPage } from './selector';
 import Paginator from '../../../containers/Paginator';
 import './ContentList.css';
 import Search from '../../../containers/Search';
-import { makeSelectIsAuthenticated } from '../LoginPage/selector';
+import { getToken } from '../../../utils/localStorage';
 
 
 type Props = {
   fetchContent: Function,
   saleContent: Array,
   location: Object,
-  isAuthenticated: boolean,
 };
 
 class ContentList extends Component <Props> {
@@ -129,7 +128,7 @@ class ContentList extends Component <Props> {
             />
           </Col>
           <Col sm={2}>
-            <Button disabled={!this.props.isAuthenticated} href="/newpost">글 등록</Button>
+            <Button disabled={!getToken()} href="/newpost">글 등록</Button>
           </Col>
         </Row>
       </Container>
@@ -140,7 +139,6 @@ class ContentList extends Component <Props> {
 const mapStateToProps = createStructuredSelector({
   saleContent: makeSelectContentList(),
   page: makeSelectListPage(),
-  isAuthenticated: makeSelectIsAuthenticated(),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
