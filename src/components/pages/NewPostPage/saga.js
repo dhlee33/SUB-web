@@ -13,7 +13,7 @@ export function* newPost({ data }) {
     yield put(Actions.newPostSuccess(response));
     window.location.replace('/');
   } catch (error) {
-    yield put(Actions.newPostFailure(error.errors));
+    yield put(Actions.newPostFailure(error.response));
   }
 }
 

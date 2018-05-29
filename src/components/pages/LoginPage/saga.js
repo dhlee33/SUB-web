@@ -16,7 +16,7 @@ export function* login({ data }) {
     yield call(profile);
     window.location.replace('/');
   } catch (error) {
-    yield put(Actions.loginFailure(error));
+    yield put(Actions.loginFailure(error.response));
   }
 }
 
@@ -36,7 +36,7 @@ export function* profile() {
     const response = yield api.get('user/profile');
     yield put(Actions.profileSuccess(response));
   } catch (error) {
-    yield put(Actions.profileFailure(error));
+    yield put(Actions.profileFailure(error.response));
   }
 }
 

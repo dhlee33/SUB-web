@@ -11,7 +11,7 @@ export function* fetchContentList({ params }) {
     const response = yield api.get('transaction/sales', params);
     yield put(Actions.contentListSuccess(response));
   } catch (error) {
-    yield put(Actions.contentListFailure(error));
+    yield put(Actions.contentListFailure(error.response));
   }
 }
 
