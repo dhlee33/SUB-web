@@ -78,7 +78,7 @@ class ContentList extends Component <Props, State> {
         <Nav tabs>
           <NavItem>
             <NavLink
-              className={classnames({ active: this.state.activeTab === '1' })}
+              className={classnames({ active: this.state.activeTab === 'sale' })}
               onClick={() => { this.toggleTab('sale'); }}
             >
             팝니다
@@ -86,7 +86,7 @@ class ContentList extends Component <Props, State> {
           </NavItem>
           <NavItem>
             <NavLink
-              className={classnames({ active: this.state.activeTab === '2' })}
+              className={classnames({ active: this.state.activeTab === 'purchase' })}
               onClick={() => { this.toggleTab('purchase'); }}
             >
             삽니다

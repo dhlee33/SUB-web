@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button} from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectProfile } from '../components/pages/LoginPage/selector';
 import { Actions } from '../components/pages/LoginPage/reducer';
@@ -43,7 +43,9 @@ class UpperBar extends React.Component <Props, State> {
       <div>
         <Navbar
           color="light"
-          light expand="md"
+          light
+          expand="md"
+          style={{borderRadius:'15px'}}
         >
           <NavbarBrand href="/">
             <b>SNU-USEDBOOK</b>
@@ -54,9 +56,9 @@ class UpperBar extends React.Component <Props, State> {
               {user &&
                 <React.Fragment>
                   <NavItem>
-                    <NavLink href="/newpost">
+                    <Button color="light" href="/newpost">
                       글 등록
-                    </NavLink>
+                    </Button>
                   </NavItem>
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
