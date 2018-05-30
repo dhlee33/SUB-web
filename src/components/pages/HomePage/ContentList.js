@@ -79,7 +79,6 @@ class ContentList extends Component <Props, State> {
   }
 
   render() {
-    console.log(this.state);
     const search = qs.parse(this.props.location.search.replace('?', ''));
     return (
       <Container>
