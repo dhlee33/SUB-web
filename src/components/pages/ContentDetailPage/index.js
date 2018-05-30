@@ -34,7 +34,7 @@ class ContentDetailPage extends React.Component <Props> {
 
 
   render() {
-    const saleContent = this.props.saleContent.toJS();
+    const saleContent = this.props.contentList.toJS();
     return (
       <Container>
         <br />
@@ -75,7 +75,7 @@ class ContentDetailPage extends React.Component <Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  saleContent: makeSelectContentDetail(),
+  contentList: makeSelectContentDetail(),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

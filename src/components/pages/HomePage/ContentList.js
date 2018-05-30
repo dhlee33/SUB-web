@@ -20,7 +20,7 @@ import { getToken } from '../../../utils/localStorage';
 
 type Props = {
   fetchContent: Function,
-  saleContent: Array,
+  contentList: Array,
   location: Object,
 };
 
@@ -35,6 +35,7 @@ class ContentList extends Component <Props, State> {
     this.state = {
       activeTab: 'sale',
       page: 1,
+      search: '',
     };
     this.toggleTab = this.toggleTab.bind(this);
     this.search = this.search.bind(this);
@@ -42,23 +43,33 @@ class ContentList extends Component <Props, State> {
 
   componentWillMount() {
     const search = qs.parse(this.props.location.search.replace('?', ''));
-    this.props.fetchContent({ page: 1, ...search });
+    this.props.fetchContent('sale', { page: 1, ...search });
     this.setState(search);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.search !== this.props.location.search) {
       const search = qs.parse(nextProps.location.search.replace('?', ''));
-      this.props.fetchContent({ page: 1, ...search });
+      this.props.fetchContent(this.state.activeTab, { page: 1, ...search });
       this.setState(search);
     }
   }
 
   toggleTab(tab) {
     if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-      });
+      const search = qs.parse(this.props.location.search.replace('?', ''));
+      if (_.isEmpty(search)) {
+        this.setState({
+          activeTab: tab,
+          search: '',
+        });
+        this.props.fetchContent(tab);
+      } else {
+        this.setState({
+          activeTab: tab,
+          search: '',
+        }, () => this.props.history.push());
+      }
     }
   }
 
@@ -68,6 +79,7 @@ class ContentList extends Component <Props, State> {
   }
 
   render() {
+    console.log(this.state);
     const search = qs.parse(this.props.location.search.replace('?', ''));
     return (
       <Container>
@@ -95,10 +107,10 @@ class ContentList extends Component <Props, State> {
         </Nav>
         <br />
         <br />
-        {!!this.props.saleContent &&
-          this.props.saleContent.toJS().map(s =>
-            <div key={s.id} style={{display: 'flex', justifyContent: 'center', marginBottom: '30px'}}>
-              <Card className="contentCard" style={{width: '90%'}}>
+        {!!this.props.contentList &&
+          this.props.contentList.toJS().map(s =>
+            <div key={s.id} style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
+              <Card className="contentCard" style={{ width: '90%' }}>
                 <CardHeader className="contentCardHeader">
                   <h4>{s.title}</h4>
                   <span>
@@ -110,14 +122,14 @@ class ContentList extends Component <Props, State> {
                 </CardHeader>
                 <CardBody>
                   <Row>
-                    <Col style={{textAlign: 'center'}} sm={12} md={5}><img src="https://images-na.ssl-images-amazon.com/images/I/51rPLfOvqxL._SX376_BO1,204,203,200_.jpg" alt="BOOKIMG" width="190px" /></Col>
+                    <Col style={{ textAlign: 'center' }} sm={12} md={5}><img src="https://images-na.ssl-images-amazon.com/images/I/51rPLfOvqxL._SX376_BO1,204,203,200_.jpg" alt="BOOKIMG" width="190px" /></Col>
                     <Col sm={12} md={7}>
                       <p><b>책 제목: </b> {s.bookTitle}</p>
                       <p><b>저자: </b> {s.author}</p>
                       <p><b>출판사: </b> {s.publisher}</p>
                       <p><b>가격: </b>{s.price} 원</p>
-                      <Button style={{width: '300px', marginBottom: '10px'}} href={`/saledetail/${s.id}`}>상세 보기</Button>
-                      <Button color="danger" style={{width: '300px'}} href={`/saledetail/${s.id}`}>장바구니</Button>
+                      <Button style={{ width: '300px', marginBottom: '10px' }} href={`/${this.state.activeTab}detail/${s.id}`}>상세 보기</Button>
+                      <Button color="danger" style={{ width: '300px' }} href={`/${this.state.activeTab}detail/${s.id}`}>장바구니</Button>
                     </Col>
                   </Row>
                 </CardBody>
@@ -142,7 +154,7 @@ class ContentList extends Component <Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  saleContent: makeSelectContentList(),
+  contentList: makeSelectContentList(),
   page: makeSelectListPage(),
 });
 

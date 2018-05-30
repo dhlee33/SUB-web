@@ -4,7 +4,7 @@ const makeSelectPage = () => (state) => state.HomePageReducer;
 
 const makeSelectContentList = () => createSelector(
   makeSelectPage(),
-  (page) => page.getIn(['contentList', 'saleContent']),
+  (page) => page.getIn(['contentList', 'contentList']),
 );
 
 const makeSelectListPage = () => createSelector(

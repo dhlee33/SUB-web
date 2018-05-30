@@ -25,6 +25,7 @@ class NewPostPage extends React.Component <Props, State> {
   constructor(props) {
     super(props);
     this.state = {
+      contentType: 'sales',
       title: '',
       content: '',
       department: '',
@@ -48,10 +49,22 @@ class NewPostPage extends React.Component <Props, State> {
         <br />
         <h1>글 작성</h1>
         <hr />
+        <Form>
+        <FormGroup>
+          <FormGroup>
+            <Label >글 제목</Label>
+            <Input onChange={({ target }) => this.setState({ title: target.value })} />
+          </FormGroup>
+          <Label>글 종류</Label>
+          <Input type="select" onChange={({ target }) => this.setState({contentType: target.value})}>
+            <option value="sales">팝니다</option>
+            <option value="purchases">삽니다</option>
+          </Input>
+        </FormGroup>
+        </Form>
+        <hr />
         <h4>책 정보</h4>
         <hr />
-        <Button color="primary">팝니다</Button>
-        <Button color="secondary">삽니다</Button>
         <Form>
           <FormGroup>
             <br />
@@ -68,8 +81,7 @@ class NewPostPage extends React.Component <Props, State> {
           </FormGroup>
           <FormGroup>
             <Label>해당 단과대</Label>
-            <Input onChange={({ target }) => this.setState({ department: target.value })} >
-            </Input>
+            <Input onChange={({ target }) => this.setState({ department: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>가격</Label>
@@ -83,10 +95,6 @@ class NewPostPage extends React.Component <Props, State> {
         <h4>글 내용</h4>
         <hr />
         <Form>
-          <FormGroup>
-            <Label >글 제목</Label>
-            <Input onChange={({ target }) => this.setState({ title: target.value })} />
-          </FormGroup>
           <FormGroup>
             <Label >내용</Label>
             <Input onChange={({ target }) => this.setState({ content: target.value })} />
