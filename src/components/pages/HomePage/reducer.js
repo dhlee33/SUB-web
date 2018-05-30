@@ -2,15 +2,15 @@ import { createActions, createReducer } from 'reduxsauce';
 import { fromJS } from 'immutable';
 
 export const { Types, Creators: Actions } = createActions({
-  contentListRequest: ['params'],
-  contentListSuccess: ['saleContent'],
+  contentListRequest: ['contentType', 'params'],
+  contentListSuccess: ['contents'],
   contentListFailure: ['error'],
 });
 
 export const initialState = fromJS({
   contentList: {
     isFetching: false,
-    saleContent: [],
+    contentList: [],
     error: null,
     page: 1,
   },
@@ -20,11 +20,11 @@ export const initialState = fromJS({
 export const contentListRequest = (state) =>
   state.mergeDeep({ contentList: { isFetching: true, error: null } });
 
-export const contentListSuccess = (state, { saleContent }) =>
-  state.merge({ contentList: { isFetching: false, saleContent: saleContent.results, page: Math.ceil(saleContent.count / 10), error: null } });
+export const contentListSuccess = (state, { contents }) =>
+  state.merge({ contentList: { isFetching: false, contentList: contents.results, page: Math.ceil(contents.count / 10), error: null } });
 
 export const contentListFailure = (state, { error }) =>
-  state.mergeDeep({ contentList: { isFetching: false, saleContent: null, error } });
+  state.mergeDeep({ contentList: { isFetching: false, contentList: null, error } });
 
 const handlers = {
   [Types.CONTENT_LIST_REQUEST]: contentListRequest,

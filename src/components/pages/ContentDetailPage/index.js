@@ -34,18 +34,18 @@ class ContentDetailPage extends React.Component <Props> {
 
 
   render() {
-    const saleContent = this.props.saleContent.toJS();
+    const contentList = this.props.contentList.toJS();
     return (
       <Container>
         <br />
         <h1>
-          {saleContent.title}
+          {contentList.title}
         </h1>
         <span>
-          <FaUser />&nbsp;{_.get(saleContent.user, 'nickname')}&nbsp;&nbsp;
+          <FaUser />&nbsp;{_.get(contentList.user, 'nickname')}&nbsp;&nbsp;
         </span>
         <span style={{ alignSelf: 'flex-end' }}>
-          <FaCalendarO />&nbsp;{moment(saleContent.updated).format('YYYY/MM/DD HH:mm')}
+          <FaCalendarO />&nbsp;{moment(contentList.updated).format('YYYY/MM/DD HH:mm')}
         </span>
         <hr />
         <Row >
@@ -53,12 +53,12 @@ class ContentDetailPage extends React.Component <Props> {
             <img src="https://images-na.ssl-images-amazon.com/images/I/41-1VkO%2B1lL._SX359_BO1,204,203,200_.jpg" alt="algorithm" width="300px" />
           </Col>
           <Col sm={6}>
-            <p><b>책 제목: </b>{saleContent.bookTitle} </p>
-            <p><b>저자: </b>{saleContent.author}</p>
-            <p><b>출판사: </b>{saleContent.publisher}</p>
-            <p><b>단과대: </b>{saleContent.department}</p>
+            <p><b>책 제목: </b>{contentList.bookTitle} </p>
+            <p><b>저자: </b>{contentList.author}</p>
+            <p><b>출판사: </b>{contentList.publisher}</p>
+            <p><b>단과대: </b>{contentList.department}</p>
             <p><b>연락처: </b>연락처</p>
-            <p style={{ color: 'red' }}><b>가격: </b>{saleContent.price}</p>
+            <p style={{ color: 'red' }}><b>가격: </b>{contentList.price}</p>
             <Button color="danger" size="lg">장바구니</Button>
 
 
@@ -66,7 +66,7 @@ class ContentDetailPage extends React.Component <Props> {
         </Row>
         <hr />
         <h3> 상세설명 </h3>
-        <p> {saleContent.content} </p>
+        <p> {contentList.content} </p>
         <hr />
         <h1> 댓글 </h1>
       </Container>
@@ -75,7 +75,7 @@ class ContentDetailPage extends React.Component <Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  saleContent: makeSelectContentDetail(),
+  contentList: makeSelectContentDetail(),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
