@@ -34,11 +34,10 @@ class LoginPage extends React.Component <Props, State> {
 
   render() {
     return (
-      <div>
+      <Container>
         {
           getToken() && <Redirect to="/" />
         }
-        <Container>
         <br />
         <h1>
           로그인 하세요
@@ -65,7 +64,6 @@ class LoginPage extends React.Component <Props, State> {
           </Row>
         </Form>
       </Container>
-      </div>
     );
   }
 }
