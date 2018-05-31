@@ -1,10 +1,12 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Container, Row, Col, Input, Button, Form } from 'reactstrap';
 import UpperBar from '../../../containers/UpperBar';
 import { Actions } from './reducer';
+import { getToken, removeToken } from '../../../utils/localStorage';
 
 type Props = {
   login: (State) => void,
@@ -32,7 +34,11 @@ class LoginPage extends React.Component <Props, State> {
 
   render() {
     return (
-      <Container>
+      <div>
+        {
+          getToken() && <Redirect to="/" />
+        }
+        <Container>
         <br />
         <h1>
           로그인 하세요
@@ -59,6 +65,7 @@ class LoginPage extends React.Component <Props, State> {
           </Row>
         </Form>
       </Container>
+      </div>
     );
   }
 }
