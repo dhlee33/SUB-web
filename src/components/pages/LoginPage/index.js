@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { Container, Row, Col, Input, Button, Form } from 'reactstrap';
 import UpperBar from '../../../containers/UpperBar';
 import { Actions } from './reducer';
-import { getToken, removeToken } from '../../../utils/localStorage';
+import { getToken } from '../../../utils/localStorage';
 
 type Props = {
   login: (State) => void,

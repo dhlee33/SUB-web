@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { Container, Input, Button, Form, FormGroup, Label } from 'reactstrap';
 import UpperBar from '../../../containers/UpperBar';
 import { Creators as Actions } from './reducer';
-import { getToken, removeToken } from '../../../utils/localStorage';
+import { getToken } from '../../../utils/localStorage';
 
 type Props = {
   newPost: (State) => void,
