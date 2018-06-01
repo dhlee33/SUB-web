@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Container, Input, Button, Form, FormGroup, Label } from 'reactstrap';
 import UpperBar from '../../../containers/UpperBar';
 import { Creators as Actions } from './reducer';
+import InterparkSearch from '../../../utils/interparkSearch';
 
 type Props = {
   newPost: (State) => void,
@@ -34,6 +35,7 @@ class NewPostPage extends React.Component <Props, State> {
       publisher: '',
       price: '',
       contact: '',
+      bookPicture: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -63,21 +65,21 @@ class NewPostPage extends React.Component <Props, State> {
         </FormGroup>
         </Form>
         <hr />
-        <h4>책 정보</h4>
+        <h4>책 정보 <InterparkSearch handleBook={b => this.setState(b)}/></h4>
         <hr />
         <Form>
+          {this.state.bookPicture && <img src={this.state.bookPicture} />}
           <FormGroup>
-            <br />
             <Label>책 제목</Label>
-            <Input onChange={({ target }) => this.setState({ bookTitle: target.value })} />
+            <Input value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>저자</Label>
-            <Input onChange={({ target }) => this.setState({ author: target.value })} />
+            <Input value={this.state.author} onChange={({ target }) => this.setState({ author: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>출판사</Label>
-            <Input onChange={({ target }) => this.setState({ publisher: target.value })} />
+            <Input value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>해당 단과대</Label>
