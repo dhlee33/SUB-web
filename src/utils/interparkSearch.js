@@ -13,7 +13,7 @@ type Props = {
   handleBook: Function,
 }
 
-class InterparkSearch extends Component {
+class InterparkSearch extends Component <Props> {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,18 +28,6 @@ class InterparkSearch extends Component {
     this.onClickBook = this.onClickBook.bind(this);
   }
 
-  toggleModalButton() {
-    this.setState({
-      modal: !this.state.modal,
-    });
-  }
-
-  toggleSearchButton(e) {
-    e.preventDefault();
-    console.log('adasas');
-    this.setState({isFetching: true},(() => search(this.state.query).then(response => this.setState({ bookList: response.item, isFetching: false }))));
-  }
-
   onClickBook(b) {
     const book = {
       bookTitle: b.title,
@@ -48,31 +36,42 @@ class InterparkSearch extends Component {
       bookPicture: b.coverLargeUrl,
     };
     this.props.handleBook(book);
-    this.setState({modal: false});
+    this.setState({ modal: false });
+  }
+
+  toggleModalButton() {
+    this.setState({
+      modal: !this.state.modal,
+    });
+  }
+
+  toggleSearchButton(e) {
+    e.preventDefault();
+    this.setState({ isFetching: true }, (() => search(this.state.query).then(response => this.setState({ bookList: response.item, isFetching: false }))));
   }
 
   render() {
     return (
-      <div style={{display: 'inline-block'}}>
+      <div style={{ display: 'inline-block' }}>
         <Button onClick={this.toggleModalButton} color="link">책 정보 검색</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggleModalButton} size="lg">
           <ModalHeader toggle={this.toggleModalButton}>책 정보 검색</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.toggleSearchButton}>
               <InputGroup>
-                <Input onChange={e => this.setState({ query: e.target.value }, console.log(this.state))} /><Button type="submit">검색</Button>
+                <Input onChange={e => this.setState({ query: e.target.value })} /><Button type="submit">검색</Button>
               </InputGroup>
             </Form>
             {this.state.isFetching ? <span>검색 중입니다...</span> :
-              <Table hover>
-                <thead>
+            <Table hover>
+              <thead>
                 <tr>
                   <th>제목</th>
                   <th>저자</th>
                   <th>출판사</th>
                 </tr>
-                </thead>
-                <tbody>
+              </thead>
+              <tbody>
                 {this.state.bookList.map(b =>
                   <tr key={b.itemId} onClick={() => this.onClickBook(b)}>
                     <td>
@@ -86,8 +85,8 @@ class InterparkSearch extends Component {
                     </td>
                   </tr>
                 )}
-                </tbody>
-              </Table>
+              </tbody>
+            </Table>
             }
           </ModalBody>
           <ModalFooter>

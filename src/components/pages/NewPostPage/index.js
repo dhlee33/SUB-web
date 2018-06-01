@@ -52,23 +52,23 @@ class NewPostPage extends React.Component <Props, State> {
         <h1>글 작성</h1>
         <hr />
         <Form>
-        <FormGroup>
           <FormGroup>
-            <Label >글 제목</Label>
-            <Input onChange={({ target }) => this.setState({ title: target.value })} />
+            <FormGroup>
+              <Label >글 제목</Label>
+              <Input onChange={({ target }) => this.setState({ title: target.value })} />
+            </FormGroup>
+            <Label>글 종류</Label>
+            <Input type="select" onChange={({ target }) => this.setState({ contentType: target.value })}>
+              <option value="sales">팝니다</option>
+              <option value="purchases">삽니다</option>
+            </Input>
           </FormGroup>
-          <Label>글 종류</Label>
-          <Input type="select" onChange={({ target }) => this.setState({contentType: target.value})}>
-            <option value="sales">팝니다</option>
-            <option value="purchases">삽니다</option>
-          </Input>
-        </FormGroup>
         </Form>
         <hr />
-        <h4>책 정보 <InterparkSearch handleBook={b => this.setState(b)}/></h4>
+        <h4>책 정보 <InterparkSearch handleBook={b => this.setState(b)} /></h4>
         <hr />
         <Form>
-          {this.state.bookPicture && <img src={this.state.bookPicture} />}
+          {this.state.bookPicture && <img src={this.state.bookPicture} alt="book" />}
           <FormGroup>
             <Label>책 제목</Label>
             <Input value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
