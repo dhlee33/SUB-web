@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Container, Input, Button, Form, FormGroup, Label } from 'reactstrap';
 import UpperBar from '../../../containers/UpperBar';
 import { Creators as Actions } from './reducer';
-import InterparkSearch from '../../../utils/interparkSearch';
+import InterparkSearch from '../../../utils/InterparkSearch';
 
 type Props = {
   newPost: (State) => void,
@@ -53,10 +53,10 @@ class NewPostPage extends React.Component <Props, State> {
         <hr />
         <Form>
           <FormGroup>
-            <FormGroup>
-              <Label >글 제목</Label>
-              <Input onChange={({ target }) => this.setState({ title: target.value })} />
-            </FormGroup>
+            <Label >글 제목</Label>
+            <Input onChange={({ target }) => this.setState({ title: target.value })} />
+          </FormGroup>
+          <FormGroup>
             <Label>글 종류</Label>
             <Input type="select" onChange={({ target }) => this.setState({ contentType: target.value })}>
               <option value="sales">팝니다</option>

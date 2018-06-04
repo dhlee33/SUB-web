@@ -11,7 +11,7 @@ const search = (query) => {
 
 type Props = {
   handleBook: Function,
-}
+};
 
 class InterparkSearch extends Component <Props> {
   constructor(props) {
@@ -40,14 +40,17 @@ class InterparkSearch extends Component <Props> {
   }
 
   toggleModalButton() {
-    this.setState({
-      modal: !this.state.modal,
-    });
+    this.setState({ modal: !this.state.modal });
   }
 
   toggleSearchButton(e) {
     e.preventDefault();
-    this.setState({ isFetching: true }, (() => search(this.state.query).then(response => this.setState({ bookList: response.item, isFetching: false }))));
+    this.setState({ isFetching: true }, (() =>
+      search(this.state.query).then(response =>
+        this.setState({
+          bookList: response.item,
+          isFetching: false,
+        }))));
   }
 
   render() {
