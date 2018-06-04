@@ -4,7 +4,7 @@ const makeSelectPage = () => (state) => state.ProfileReducer;
 
 const makeSelectTransaction = () => createSelector(
   makeSelectPage(),
-  (page) => page.getIn(['user', 'transaction']),
+  (page) => page.getIn(['newTransaction', 'payload']),
 );
 
 

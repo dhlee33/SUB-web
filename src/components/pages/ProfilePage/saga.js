@@ -21,12 +21,11 @@ export function* newProfile({ data }) {
 export function* watchNewTransactionRequest() {
   yield takeLatest(Types.NEW_TRANSACTION_REQUEST, newTransaction);
 }
-export function* newTransaction({ data }) {
+
+export function* newTransaction() {
   try {
-    const { contentType } = data;
-    const response = yield api.put(`user/transaction${contentType}`, _.omit(data, ['contentType']));
+    const response = yield api.get('user/transactions');
     yield put(Actions.newTransactionSuccess(response));
-    window.location.replace('/');
   } catch (error) {
     yield put(Actions.newTransactionFailure(error.response));
   }
