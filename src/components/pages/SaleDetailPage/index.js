@@ -9,22 +9,49 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment/moment';
 import _ from 'lodash';
 import { Actions } from './reducer';
-import { makeSelectSaleDetail, makeSelectSaleComments } from './selector';
+import { makeSelectSaleDetail, makeSelectSaleComments, makeSelectNewComment } from './selector';
 
 
 type Props = {
   contentList: Map<string, any>,
   comments: Map<string, any>,
+  newCommentState: Map<string, any>,
   fetchContent: (id: number) => void,
   getComments: (id: number) => void,
+  postNewComment: (saleId: number, content: string) => void,
 };
 
-class SaleDetailPage extends React.Component <Props> {
+type State = {
+  newComment: string,
+};
+
+class SaleDetailPage extends React.Component <Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      newComment: '',
+    };
+    this.handleSubmitNewComment = this.handleSubmitNewComment.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchContent(this.props.match.params.id);
     this.props.getComments(this.props.match.params.id);
   }
 
+  componentWillReceiveProps(nextProps: Props) {
+    if (!nextProps.newCommentState.get('isFetching')) {
+      this.props.getComments(this.props.match.params.id);
+    }
+  }
+
+  handleSubmitNewComment(event) {
+    event.preventDefault();
+    this.props.postNewComment({
+      saleId: this.props.match.params.id,
+      content: this.state.newComment,
+    });
+  }
 
   render() {
     const {
@@ -69,6 +96,15 @@ class SaleDetailPage extends React.Component <Props> {
         <p>{contentList.get('content')}</p>
         <hr />
         <h1>댓글</h1>
+        <div>
+          <Input
+            value={this.state.newComment}
+            onChange={({ target }) => this.setState({ newComment: target.value })}
+          />
+          <Button onClick={this.handleSubmitNewComment}>
+            등록
+          </Button>
+        </div>
         {!!comments &&
           comments.map((comment: Object, index: number) => (
             <div key={index}>
@@ -85,11 +121,13 @@ class SaleDetailPage extends React.Component <Props> {
 const mapStateToProps = createStructuredSelector({
   contentList: makeSelectSaleDetail(),
   comments: makeSelectSaleComments(),
+  newCommentState: makeSelectNewComment(),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchContent: Actions.saleDetailRequest,
   getComments: Actions.saleCommentRequest,
+  postNewComment: Actions.newCommentRequest,
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SaleDetailPage));

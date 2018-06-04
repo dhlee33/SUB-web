@@ -12,7 +12,13 @@ const makeSelectSaleComments = () => createSelector(
   (page) => page.getIn(['comment', 'comments']),
 );
 
+const makeSelectNewComment = () => createSelector(
+  makeSelectPage(),
+  (page) => page.get('newComment'),
+);
+
 export {
   makeSelectSaleDetail,
   makeSelectSaleComments,
+  makeSelectNewComment,
 };

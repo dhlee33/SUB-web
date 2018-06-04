@@ -28,7 +28,21 @@ export function* getSaleComments({ id }) {
   }
 }
 
+export function* watchNewSaleCommentRequest() {
+  yield takeLatest(Types.NEW_COMMENT_REQUEST, newSaleComment);
+}
+
+export function* newSaleComment({ data }) {
+  try {
+    yield api.post('transaction/sale/comments', data);
+    yield put(Actions.newCommentSuccess());
+  } catch (error) {
+    yield put(Actions.newCommentFailure(error.response));
+  }
+}
+
 export default [
   watchFetchSaleDetail,
   watchGetSaleCommentsRequest,
+  watchNewSaleCommentRequest,
 ];

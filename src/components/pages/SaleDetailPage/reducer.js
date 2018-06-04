@@ -8,6 +8,9 @@ export const { Types, Creators: Actions } = createActions({
   saleCommentRequest: ['id'],
   saleCommentSuccess: ['comments'],
   saleCommentFailure: ['error'],
+  newCommentRequest: ['data'],
+  newCommentSuccess: null,
+  newCommentFailure: ['error'],
 });
 
 export const initialState = fromJS({
@@ -19,6 +22,10 @@ export const initialState = fromJS({
   saleComment: {
     isFetching: false,
     comments: null,
+    error: null,
+  },
+  newComment: {
+    isFetching: false,
     error: null,
   },
 });
@@ -41,6 +48,15 @@ export const saleCommentSuccess = (state, { comments }) =>
 export const saleCommentFailure = (state, { error }) =>
   state.mergeDeep({ comment: { isFetching: false, comments: null, error } });
 
+export const newCommentRequest = (state) =>
+  state.mergeDeep({ newComment: { isFetching: true, error: null } });
+
+export const newCommentSuccess = (state) =>
+  state.mergeDeep({ newComment: { isFetching: false, error: null } });
+
+export const newCommentFailure = (state, { error }) =>
+  state.mergeDeep({ newComment: { isFetching: false, error } });
+
 const handlers = {
   [Types.SALE_DETAIL_REQUEST]: saleDetailRequest,
   [Types.SALE_DETAIL_SUCCESS]: saleDetailSuccess,
@@ -48,6 +64,9 @@ const handlers = {
   [Types.SALE_COMMENT_REQUEST]: saleCommentRequest,
   [Types.SALE_COMMENT_SUCCESS]: saleCommentSuccess,
   [Types.SALE_COMMENT_FAILURE]: saleCommentFailure,
+  [Types.NEW_COMMENT_REQUEST]: newCommentRequest,
+  [Types.NEW_COMMENT_SUCCESS]: newCommentSuccess,
+  [Types.NEW_COMMENT_FAILURE]: newCommentFailure,
 };
 
 export default createReducer(initialState, handlers);
