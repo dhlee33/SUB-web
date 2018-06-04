@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { Container, Input, Button, Form, FormGroup, Label } from 'reactstrap';
-import UpperBar from '../../../containers/UpperBar';
 import { Creators as Actions } from './reducer';
+import InterparkSearch from '../../../utils/InterparkSearch';
 import { getToken } from '../../../utils/localStorage';
 
 type Props = {
@@ -36,6 +36,7 @@ class NewPostPage extends React.Component <Props, State> {
       publisher: '',
       price: '',
       contact: '',
+      bookPicture: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -55,34 +56,34 @@ class NewPostPage extends React.Component <Props, State> {
         <h1>글 작성</h1>
         <hr />
         <Form>
-        <FormGroup>
           <FormGroup>
-            <Label >글 제목</Label>
+            <Label>글 제목</Label>
             <Input onChange={({ target }) => this.setState({ title: target.value })} />
           </FormGroup>
-          <Label>글 종류</Label>
-          <Input type="select" onChange={({ target }) => this.setState({contentType: target.value})}>
-            <option value="sales">팝니다</option>
-            <option value="purchases">삽니다</option>
-          </Input>
-        </FormGroup>
+          <FormGroup>
+            <Label>글 종류</Label>
+            <Input type="select" onChange={({ target }) => this.setState({ contentType: target.value })}>
+              <option value="sales">팝니다</option>
+              <option value="purchases">삽니다</option>
+            </Input>
+          </FormGroup>
         </Form>
         <hr />
-        <h4>책 정보</h4>
+        <h4>책 정보 <InterparkSearch handleBook={b => this.setState(b)} /></h4>
         <hr />
         <Form>
+          {this.state.bookPicture && <img src={this.state.bookPicture} alt="book" />}
           <FormGroup>
-            <br />
             <Label>책 제목</Label>
-            <Input onChange={({ target }) => this.setState({ bookTitle: target.value })} />
+            <Input value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>저자</Label>
-            <Input onChange={({ target }) => this.setState({ author: target.value })} />
+            <Input value={this.state.author} onChange={({ target }) => this.setState({ author: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>출판사</Label>
-            <Input onChange={({ target }) => this.setState({ publisher: target.value })} />
+            <Input value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>해당 단과대</Label>
