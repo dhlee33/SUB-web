@@ -107,7 +107,7 @@ class ContentList extends Component <Props, State> {
           </NavItem>
         </Nav>
         <br />
-        {this.state.activeTab === 'sale' ? <SaleList contentList={this.props.contentList} /> : <PurchaseList contentList={this.props.contentList} />}
+        {this.state.activeTab === 'sale' ? <SaleList contentList={this.props.content} /> : <PurchaseList contentList={this.props.content} />}
         <Row>
           <Col sm={10}>
             <Paginator
@@ -126,7 +126,7 @@ class ContentList extends Component <Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  contentList: makeSelectContentList(),
+  content: makeSelectContentList(),
   page: makeSelectListPage(),
 });
 

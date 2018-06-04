@@ -30,10 +30,12 @@ class InterparkSearch extends Component <Props> {
 
   onClickBook(b) {
     const book = {
+      itemId: b.itemId,
       bookTitle: b.title,
       author: b.author,
       publisher: b.publisher,
-      bookPicture: b.coverLargeUrl,
+      interparkImage: b.coverLargeUrl,
+      priceStandard: b.priceStandard,
     };
     this.props.handleBook(book);
     this.setState({ modal: false });
