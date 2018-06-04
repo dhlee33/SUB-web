@@ -41,7 +41,7 @@ const SaleList = ({ contentList }) => {
               </CardBody>
             </Card>
           </div>
-    )}
+      )}
     </div>
   );
 };

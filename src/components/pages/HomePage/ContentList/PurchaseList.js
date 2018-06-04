@@ -25,7 +25,7 @@ const PurchaseList = ({ contentList, history }) => {
           onClick={() => history.push(`purchasedetail/${p.id}`)}
           style={{ cursor: 'pointer' }}
         >
-          <td>{p.bookTitle}</td>
+          <td>{p.bookTitle}<span style={{color: 'blue'}}> [{p.purchase_comments ? p.purchase_comments.length : 0}]</span></td>
           <td>{p.price} 원</td>
           <td>{_.get(p.user, 'nickname')}</td>
           <td>{now === moment(p.updated).format('YYYY/MM/DD') ? moment(p.updated).format('HH:mm') : moment(p.updated).format('YYYY/MM/DD')}</td>
