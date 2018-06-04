@@ -6,6 +6,7 @@ import HomePageReducer from '../components/pages/HomePage/reducer';
 import NewPostReducer from '../components/pages/NewPostPage/reducer';
 import ContentDetailReducer from '../components/pages/ContentDetailPage/reducer';
 import SignUpReducer from '../components/pages/SignUpPage/reducer';
+import ProfileReducer from '../components/pages/ProfilePage/reducer';
 
 const reducers = {
   routing,
@@ -15,6 +16,7 @@ const reducers = {
   NewPostReducer,
   ContentDetailReducer,
   SignUpReducer,
+  ProfileReducer,
 };
 
 const req = require.context('.', true, /\.\/.+\/reducer\.js$/);
