@@ -8,8 +8,7 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment/moment';
 import _ from 'lodash';
 import { Actions } from './reducer';
-import { makeSelectProfile } from '../LoginPage/selector';
-import { makeSelectTransaction } from './selector';
+import { makeSelectTransaction, makeSelectProfile } from './selector';
 
 type Props = {
   profile: Object,

@@ -1,6 +1,6 @@
 import { take, call, put, takeLatest } from 'redux-saga/effects';
 import _ from 'lodash';
-import { Types, Creators as Actions } from './reducer';
+import { Types, Actions } from './reducer';
 import api from 'services/api';
 
 export function* watchNewProfileRequest() {
@@ -31,7 +31,22 @@ export function* newTransaction({ data }) {
     yield put(Actions.newTransactionFailure(error.response));
   }
 }
+
+export function* watchProfileRequest() {
+  yield takeLatest(Types.PROFILE_REQUEST, profile);
+}
+
+export function* profile() {
+  try {
+    const response = yield api.get('user/profile');
+    yield put(Actions.profileSuccess(response));
+  } catch (error) {
+    yield put(Actions.profileFailure(error.response));
+  }
+}
+
 export default [
   watchNewProfileRequest,
   watchNewTransactionRequest,
+  watchProfileRequest,
 ];

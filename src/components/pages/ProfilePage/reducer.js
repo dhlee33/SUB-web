@@ -11,6 +11,9 @@ export const { Types, Creators: Actions } = createActions({
   newTransactionRequest: ['data'],
   newTransactionSuccess: ['payload'],
   newTransactionFailure: ['error'],
+  profileRequest: null,
+  profileSuccess: ['profile'],
+  profileFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -25,7 +28,12 @@ export const initialState = fromJS({
     isFetching: false,
     payload: null,
     error: null,
-  }
+  },
+  user: {
+    isFetching: false,
+    profile: null,
+    error: null,
+  },
 });
 
 /* ------------- Reducers ------------- */
@@ -48,6 +56,14 @@ export const newTransactionSuccess = (state, { payload }) =>
 export const newTransactionFailure = (state, { error }) =>
   state.mergeDeep({ newTransaction: { isFetching: false, error } });
 
+export const profileRequest = (state) =>
+  state.mergeDeep({ user: { isFetching: true, profile: null, error: null } });
+
+export const profileSuccess = (state, { profile }) =>
+  state.mergeDeep({ user: { isFetching: false, profile, error: null } });
+
+export const profileFailure = (state, { error }) =>
+  state.mergeDeep({ user: { isFetching: false, profile: null, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -58,5 +74,8 @@ export default createReducer(initialState, {
   [Types.NEW_TRANSACTION_REQUEST]: newTransactionRequest,
   [Types.NEW_TRANSACTION_SUCCESS]: newTransactionSuccess,
   [Types.NEW_TRANSACTION_FAILURE]: newTransactionFailure,
+  [Types.PROFILE_REQUEST]: profileRequest,
+  [Types.PROFILE_SUCCESS]: profileSuccess,
+  [Types.PROFILE_FAILURE]: profileFailure,
 });
 

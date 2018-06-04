@@ -7,6 +7,13 @@ const makeSelectTransaction = () => createSelector(
   (page) => page.getIn(['user', 'transaction']),
 );
 
+
+const makeSelectProfile = () => createSelector(
+  makeSelectPage(),
+  (page) => page.getIn(['user', 'profile']),
+);
+
 export {
   makeSelectTransaction,
+  makeSelectProfile,
 };
