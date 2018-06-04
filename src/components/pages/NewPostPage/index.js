@@ -2,10 +2,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import { Container, Input, Button, Form, FormGroup, Label } from 'reactstrap';
-import UpperBar from '../../../containers/UpperBar';
 import { Creators as Actions } from './reducer';
 import InterparkSearch from '../../../utils/InterparkSearch';
+import { getToken } from '../../../utils/localStorage';
 
 type Props = {
   newPost: (State) => void,
@@ -48,6 +49,9 @@ class NewPostPage extends React.Component <Props, State> {
   render() {
     return (
       <Container>
+        {
+          !getToken() && <Redirect to="/" />
+        }
         <br />
         <h1>글 작성</h1>
         <hr />
