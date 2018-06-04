@@ -57,7 +57,7 @@ class NewPostPage extends React.Component <Props, State> {
         <hr />
         <Form>
           <FormGroup>
-            <Label >글 제목</Label>
+            <Label>글 제목</Label>
             <Input onChange={({ target }) => this.setState({ title: target.value })} />
           </FormGroup>
           <FormGroup>
