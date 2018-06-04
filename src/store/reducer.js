@@ -4,7 +4,7 @@ import { reducer as form } from 'redux-form';
 import LoginReducer from '../components/pages/LoginPage/reducer';
 import HomePageReducer from '../components/pages/HomePage/reducer';
 import NewPostReducer from '../components/pages/NewPostPage/reducer';
-import ContentDetailReducer from '../components/pages/ContentDetailPage/reducer';
+import SaleDetailReducer from '../components/pages/SaleDetailPage/reducer';
 import SignUpReducer from '../components/pages/SignUpPage/reducer';
 
 const reducers = {
@@ -13,7 +13,7 @@ const reducers = {
   LoginReducer,
   HomePageReducer,
   NewPostReducer,
-  ContentDetailReducer,
+  SaleDetailReducer,
   SignUpReducer,
 };
 
