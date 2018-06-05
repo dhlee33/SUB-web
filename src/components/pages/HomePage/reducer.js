@@ -8,7 +8,7 @@ export const { Types, Creators: Actions } = createActions({
 });
 
 export const initialState = fromJS({
-  contentList: {
+  content: {
     isFetching: false,
     contentList: [],
     error: null,
@@ -18,13 +18,13 @@ export const initialState = fromJS({
 
 
 export const contentListRequest = (state) =>
-  state.mergeDeep({ contentList: { isFetching: true, error: null } });
+  state.mergeDeep({ content: { isFetching: true, error: null } });
 
 export const contentListSuccess = (state, { contents }) =>
-  state.merge({ contentList: { isFetching: false, contentList: contents.results, page: Math.ceil(contents.count / 10), error: null } });
+  state.merge({ content: { isFetching: false, content: contents.results, page: Math.ceil(contents.count / 10), error: null } });
 
 export const contentListFailure = (state, { error }) =>
-  state.mergeDeep({ contentList: { isFetching: false, contentList: null, error } });
+  state.mergeDeep({ content: { isFetching: false, content: null, error } });
 
 const handlers = {
   [Types.CONTENT_LIST_REQUEST]: contentListRequest,

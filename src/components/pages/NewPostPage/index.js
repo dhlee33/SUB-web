@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { Container, Input, Button, Form, FormGroup, Label } from 'reactstrap';
+import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import { Creators as Actions } from './reducer';
 import InterparkSearch from '../../../utils/InterparkSearch';
 import { getToken } from '../../../utils/localStorage';
@@ -34,9 +34,10 @@ class NewPostPage extends React.Component <Props, State> {
       bookTitle: '',
       author: '',
       publisher: '',
-      price: '',
+      price: 0,
+      priceStandard: 0,
       contact: '',
-      bookPicture: '',
+      interparkImage: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -86,12 +87,26 @@ class NewPostPage extends React.Component <Props, State> {
             <Input value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
           </FormGroup>
           <FormGroup>
+            <Label>원가</Label>
+            <InputGroup>
+              <Input type="number" value={this.state.priceStandard} onChange={({ target }) => this.setState({ priceStandard: target.value })} />
+              <InputGroupAddon>
+              원
+            </InputGroupAddon>
+            </InputGroup>
+          </FormGroup>
+          <FormGroup>
             <Label>해당 단과대</Label>
             <Input onChange={({ target }) => this.setState({ department: target.value })} />
           </FormGroup>
           <FormGroup>
-            <Label>가격</Label>
-            <Input onChange={({ target }) => this.setState({ price: target.value })} />
+            <Label>중고 가격</Label>
+            <InputGroup>
+              <Input value={this.state.price} type="number" onChange={({ target }) => this.setState({ price: target.value })} />
+              <InputGroupAddon>
+                원
+              </InputGroupAddon>
+            </InputGroup>
           </FormGroup>
           <FormGroup>
             <Button>책 사진 추가</Button>

@@ -65,11 +65,11 @@ class UpperBar extends React.Component <Props, State> {
                       {user.get('nickname')} 님
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>
-                        Option 1
+                      <DropdownItem onClick={() => window.location.replace('/profile')}>
+                        내 프로필
                       </DropdownItem>
-                      <DropdownItem>
-                        Option 2
+                      <DropdownItem onClick={() => window.location.replace('/interest')}>
+                        장바구니
                       </DropdownItem>
                       <DropdownItem divider />
                       <DropdownItem onClick={this.handleLogout}>

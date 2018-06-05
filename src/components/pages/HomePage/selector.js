@@ -4,12 +4,12 @@ const makeSelectPage = () => (state) => state.HomePageReducer;
 
 const makeSelectContentList = () => createSelector(
   makeSelectPage(),
-  (page) => page.getIn(['contentList', 'contentList']),
+  (page) => page.getIn(['content', 'content']),
 );
 
 const makeSelectListPage = () => createSelector(
   makeSelectPage(),
-  (page) => page.getIn(['contentList', 'page']),
+  (page) => page.getIn(['content', 'page']),
 );
 
 export {
