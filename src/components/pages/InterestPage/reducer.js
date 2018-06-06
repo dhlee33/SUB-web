@@ -15,7 +15,6 @@ export const initialState = fromJS({
   },
 });
 
-
 export const interestListRequest = (state) =>
   state.merge({ interestList: { isFetching: true, error: null } });
 

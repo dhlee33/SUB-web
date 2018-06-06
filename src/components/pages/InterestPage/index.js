@@ -36,5 +36,4 @@ const mapStateToProps = createStructuredSelector({
   interest: makeSelectInterestList(),
 });
 
-
 export default connect(mapStateToProps)(InterestPage);

@@ -7,7 +7,6 @@ const makeSelectTransaction = () => createSelector(
   (page) => page.getIn(['newTransaction', 'payload']),
 );
 
-
 const makeSelectProfile = () => createSelector(
   makeSelectPage(),
   (page) => page.getIn(['user', 'profile']),
