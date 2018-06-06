@@ -7,6 +7,8 @@ import LoginPage from 'components/pages/LoginPage';
 import NewPostPage from 'components/pages/NewPostPage';
 import SaleDetailPage from 'components/pages/SaleDetailPage';
 import SignUpPage from 'components/pages/SignUpPage';
+import ProfilePage from 'components/pages/ProfilePage';
+import InterestPage from 'components/pages/InterestPage';
 
 const routes = (
   <Router basename="/">
@@ -16,6 +18,8 @@ const routes = (
       <Route exact path="/newpost" component={NewPostPage} />
       <Route exact path="/saledetail/:id" component={SaleDetailPage} />
       <Route exact path="/signup" component={SignUpPage} />
+      <Route exact path="/profile" component={ProfilePage} />
+      <Route exact path="/interest" component={InterestPage} />
     </Switch>
   </Router>
 );

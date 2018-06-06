@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button} from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectProfile } from '../components/pages/LoginPage/selector';
+import { makeSelectProfile } from '../components/pages/ProfilePage/selector';
 import { Actions } from '../components/pages/LoginPage/reducer';
 
 type Props = {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
-import { Actions } from '../components/pages/LoginPage/reducer';
+import { Actions } from '../components/pages/ProfilePage/reducer';
 import UpperBar from '../containers/UpperBar';
 import theme from './themes/default';
 import NewPostPage from './pages/NewPostPage';

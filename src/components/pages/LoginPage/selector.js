@@ -9,17 +9,6 @@ const makeSelectPrev = () => createSelector(
   (route) => route.get('locationBeforeTransitions'),
 );
 
-const makeSelectUser = () => createSelector(
-  makeSelectPage(),
-  (page) => page.get('user'),
-);
-
-const makeSelectProfile = () => createSelector(
-  makeSelectPage(),
-  (page) => page.getIn(['user', 'profile']),
-);
-
 export {
   makeSelectPrev,
-  makeSelectProfile,
 };
