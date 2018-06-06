@@ -10,7 +10,7 @@ import moment from 'moment/moment';
 import _ from 'lodash';
 import { Actions } from './reducer';
 import { makeSelectContentDetail, makeSelectContentComments, makeSelectNewComment } from './selector';
-import { makeSelectProfile } from '../LoginPage/selector';
+import { makeSelectProfile } from '../ProfilePage/selector';
 
 
 type Props = {
@@ -44,6 +44,7 @@ class DetailPage extends React.Component <Props, State> {
   }
 
   componentDidMount() {
+    console.log(this.props);
     this.props.fetchContent(this.props.type, this.props.match.params.id);
   }
 
@@ -127,7 +128,7 @@ class DetailPage extends React.Component <Props, State> {
                 </DropdownToggle>
                 <DropdownMenu>
                   {!content.get('isComplete') &&
-                    <DropdownItem>수정</DropdownItem>
+                    <DropdownItem onClick={() => window.location.replace(`/${this.props.type}edit/${this.props.match.params.id}`)}>수정</DropdownItem>
                   }
                   <DropdownItem onClick={this.handleDelete}>삭제</DropdownItem>
                   {!content.get('isComplete') &&
@@ -151,7 +152,7 @@ class DetailPage extends React.Component <Props, State> {
             <p><b>단과대: </b>{content.get('department')}</p>
             <p><b>연락처: </b>{content.get('contact')}</p>
             <p><b>원가: </b>{content.getIn(['book', 'priceStandard'])} 원</p>
-            <p style={{ color: 'red' }}><b>{this.props.type ==='sale' ? '중고가: ' : '희망 가격: '}</b>{content.get('price')} 원</p>
+            <p style={{ color: 'red' }}><b>{this.props.type === 'sale' ? '중고가: ' : '희망 가격: '}</b>{content.get('price')} 원</p>
             <Button color="danger" size="lg">장바구니</Button>
           </Col>
         </Row>

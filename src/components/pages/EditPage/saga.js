@@ -7,10 +7,9 @@ export function* watchEditRequest() {
   yield takeLatest(Types.EDIT_REQUEST, edit);
 }
 
-export function* edit({ data }) {
+export function* edit({ contentType, id, data }) {
   try {
-    const { contentType } = data;
-    const response = yield api.put(`transaction/${contentType}`, _.omit(data, ['contentType']));
+    const response = yield api.put(`transaction/${contentType}/${id}`, data);
     yield put(Actions.newPostSuccess(response));
     window.location.replace('/');
   } catch (error) {

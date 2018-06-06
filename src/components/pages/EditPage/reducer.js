@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  editRequest: ['data'],
+  editRequest: ['contentType', 'id', 'data'],
   editSuccess: null,
   editFailure: ['error'],
 });

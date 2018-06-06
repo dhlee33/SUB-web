@@ -8,6 +8,7 @@ import ContentDetailReducer from '../components/pages/DetailPage/reducer';
 import SignUpReducer from '../components/pages/SignUpPage/reducer';
 import ProfileReducer from '../components/pages/ProfilePage/reducer';
 import InterestReducer from '../components/pages/InterestPage/reducer';
+import EditReducer from '../components/pages/EditPage/reducer';
 
 const reducers = {
   routing,
@@ -19,6 +20,7 @@ const reducers = {
   SignUpReducer,
   ProfileReducer,
   InterestReducer,
+  EditReducer,
 };
 
 const req = require.context('.', true, /\.\/.+\/reducer\.js$/);

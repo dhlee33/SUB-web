@@ -3,10 +3,10 @@ import api from '../../../services/api';
 import { Actions, Types } from './reducer';
 
 export function* watchFetchSaleDetail() {
-  yield takeLatest(Types.CONTENT_DETAIL_REQUEST, fetchSaleDetail);
+  yield takeLatest(Types.CONTENT_DETAIL_REQUEST, fetchContentDetail);
 }
 
-export function* fetchSaleDetail({ contentType, id }) {
+export function* fetchContentDetail({ contentType, id }) {
   try {
     const response = yield api.get(`transaction/${contentType}/${id}`);
     yield put(Actions.contentDetailSuccess(response));
