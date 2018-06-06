@@ -59,6 +59,7 @@ const Paginator = ({search, total, current, history}: {
                 page: Math.max(current - 1, 1),
               }),
             });
+            window.scrollTo(0, 0);
           }}
         >Prev</PaginationLink>
       </PaginationItem>
@@ -71,6 +72,7 @@ const Paginator = ({search, total, current, history}: {
                 e.preventDefault();
                 e.target.blur();
                 history.push({search: qs.stringify({...search, page})});
+                window.scrollTo(0, 0);
               }}
             >{page}</PaginationLink>
           </PaginationItem>
@@ -88,6 +90,7 @@ const Paginator = ({search, total, current, history}: {
                 page: Math.min(current + 1, total),
               }),
             });
+            window.scrollTo(0, 0);
           }}
         >Next</PaginationLink>
       </PaginationItem>

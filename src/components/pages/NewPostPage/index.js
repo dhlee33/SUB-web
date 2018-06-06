@@ -67,11 +67,11 @@ class NewPostPage extends React.Component <Props, State> {
               <ButtonGroup>
                 <Button
                   onClick={() => this.setState({ contentType: 'sales' })}
-                  active={this.state.contentType === 'sales'}
+                  color={this.state.contentType === 'sales' ? 'primary' : 'secondary'}
                 >팝니다</Button>
                 <Button
                   onClick={() => this.setState({ contentType: 'purchases' })}
-                  active={this.state.contentType === 'purchases'}
+                  color={this.state.contentType === 'purchases' ? 'primary' : 'secondary'}
                 >삽니다</Button>
               </ButtonGroup>
             </div>
