@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button, Card, CardHeader, CardBody } from 'reactstrap';
+import { Row, Col, Button, Card, CardHeader, CardBody, Badge } from 'reactstrap';
 import { FaUser, FaCalendarO } from 'react-icons/lib/fa';
 import moment from 'moment';
 import _ from 'lodash';
@@ -24,7 +24,10 @@ const SaleList = ({ contentList }) => {
                 <span style={{color: 'blue'}}>
                   {s.sale_comments ? s.sale_comments.length : 0}
                 </span>
-                <span>개</span>
+                <span>개 </span>
+                {s.isComplete &&
+                  <Badge color="info">완료됨</Badge>
+                }
               </CardHeader>
               <CardBody>
                 <Row>

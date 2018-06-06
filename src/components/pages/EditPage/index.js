@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon, ButtonGroup } from 'reactstrap';
+import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
 import InterparkSearch from '../../../utils/InterparkSearch';
 import { getToken } from '../../../utils/localStorage';
+import { makeSelectContentDetail } from '../DetailPage/selector';
 
 type Props = {
-  newPost: (State) => void,
+  edit: (State) => void,
 };
 
 type State = {
@@ -23,7 +25,7 @@ type State = {
   contact: string,
 };
 
-class NewPostPage extends React.Component <Props, State> {
+class EditPage extends React.Component <Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,9 +44,13 @@ class NewPostPage extends React.Component <Props, State> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchContent(this.props.type, this.props.match.params.id);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    this.props.newPost(this.state);
+    this.props.edit(this.state);
   }
 
   render() {
@@ -140,10 +146,13 @@ class NewPostPage extends React.Component <Props, State> {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  newPost: Actions.newPostRequest,
+  edit: Actions.editRequest,
+  fetchContent: Actions.fetchContent,
 }, dispatch);
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = createStructuredSelector({
+  content: makeSelectContentDetail(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPostPage);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPage);
