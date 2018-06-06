@@ -22,9 +22,9 @@ const routes = (
       <Route exact path="/signup" component={SignUpPage} />
       <Route exact path="/profile" component={ProfilePage} />
       <Route exact path="/interest" component={InterestPage} />
+      <Route exact path="/purchaseedit/:id" render={() => <EditPage type="purchase" />} />
+      <Route exact path="/saleedit/:id" render={() => <EditPage type="edit" />} />
     </Switch>
-    <Route exact path="/purchaseedit/:id" render={() => <EditPage type="purchase" />} />
-    <Route exact path="/saleedit/:id" render={() => <EditPage type="edit" />} />
   </Router>
 );
 
