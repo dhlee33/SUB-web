@@ -2,14 +2,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon, ButtonGroup } from 'reactstrap';
+import { createStructuredSelector } from 'reselect';
+import _ from 'lodash';
 import { Creators as Actions } from './reducer';
 import InterparkSearch from '../../../utils/InterparkSearch';
 import { getToken } from '../../../utils/localStorage';
+import { makeSelectContentDetail } from '../DetailPage/selector';
+import { Actions as DetailActions } from '../DetailPage/reducer';
 
 type Props = {
-  newPost: (State) => void,
+  edit: (State) => void,
 };
 
 type State = {
@@ -23,31 +27,49 @@ type State = {
   contact: string,
 };
 
-class NewPostPage extends React.Component <Props, State> {
+class EditPage extends React.Component <Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      contentType: 'sales',
       title: '',
       content: '',
       department: '',
-      bookTitle: '',
-      author: '',
-      publisher: '',
       price: 0,
-      priceStandard: 0,
       contact: '',
-      interparkImage: '',
+      priceStandard: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    console.log(this.props.type, this.props.match.params.id, this.props);
+    this.props.fetchContent(this.props.type, this.props.match.params.id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.content && nextProps.content) {
+      const contentDetail = nextProps.content.toJS();
+      const { title, content, price, department, contact, bookTitle, author, publisher } = contentDetail;
+      let priceStandard = 0;
+      if (contentDetail.book) {
+        priceStandard = contentDetail.book.priceStandard;
+      }
+      this.setState({ title, content, price, department, contact, bookTitle, author, publisher, priceStandard });
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    this.props.newPost(this.state);
+    this.props.edit(this.props.type, this.props.match.params.id, this.state);
+    window.location.replace(`/${this.props.type}detail/${this.props.match.params.id}`);
   }
 
   render() {
+    console.log(this.props);
+    if (!this.props.content) {
+      return (<div>loading...</div>);
+    }
+
     return (
       <Container>
         {
@@ -59,21 +81,12 @@ class NewPostPage extends React.Component <Props, State> {
         <Form>
           <FormGroup>
             <Label>글 제목</Label>
-            <Input onChange={({ target }) => this.setState({ title: target.value })} />
+            <Input value={this.state.title} onChange={({ target }) => this.setState({ title: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>글 종류</Label>
             <div>
-              <ButtonGroup>
-                <Button
-                  onClick={() => this.setState({ contentType: 'sales' })}
-                  color={this.state.contentType === 'sales' ? 'primary' : 'secondary'}
-                >팝니다</Button>
-                <Button
-                  onClick={() => this.setState({ contentType: 'purchases' })}
-                  color={this.state.contentType === 'purchases' ? 'primary' : 'secondary'}
-                >삽니다</Button>
-              </ButtonGroup>
+              <Button disabled>{this.props.type === 'sale' ? '팝니다' : '삽니다'}</Button>
             </div>
           </FormGroup>
         </Form>
@@ -84,20 +97,20 @@ class NewPostPage extends React.Component <Props, State> {
           {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" />}
           <FormGroup>
             <Label>책 제목</Label>
-            <Input value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
+            <Input value={this.state.bookTitle} onChange={e => this.setState({ bookTitle: e.target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>저자</Label>
-            <Input value={this.state.author} onChange={({ target }) => this.setState({ author: target.value })} />
+            <Input value={this.state.author} onChange={e => this.setState({ author: e.target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>출판사</Label>
-            <Input value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
+            <Input value={this.state.publisher} onChange={e => this.setState({ publisher: e.target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>원가</Label>
             <InputGroup>
-              <Input type="number" value={this.state.priceStandard} onChange={({ target }) => this.setState({ priceStandard: target.value })} />
+              <Input type="number" value={this.state.priceStandard} onChange={e => this.setState({ priceStandard: e.target.value })} />
               <InputGroupAddon>
               원
             </InputGroupAddon>
@@ -105,7 +118,7 @@ class NewPostPage extends React.Component <Props, State> {
           </FormGroup>
           <FormGroup>
             <Label>해당 단과대</Label>
-            <Input onChange={({ target }) => this.setState({ department: target.value })} />
+            <Input value={this.state.department} onChange={({ target }) => this.setState({ department: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>중고 가격</Label>
@@ -126,13 +139,13 @@ class NewPostPage extends React.Component <Props, State> {
         <Form>
           <FormGroup>
             <Label >내용</Label>
-            <Input onChange={({ target }) => this.setState({ content: target.value })} />
+            <Input value={this.state.content} onChange={({ target }) => this.setState({ content: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>연락처</Label>
-            <Input onChange={({ target }) => this.setState({ contact: target.value })} />
+            <Input value={this.state.contact} onChange={({ target }) => this.setState({ contact: target.value })} />
           </FormGroup>
-          <Button onClick={this.handleSubmit}>등록하기</Button>
+          <Button onClick={this.handleSubmit}>수정하기</Button>
           <hr />
         </Form>
       </Container>
@@ -141,10 +154,13 @@ class NewPostPage extends React.Component <Props, State> {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  newPost: Actions.newPostRequest,
+  edit: Actions.editRequest,
+  fetchContent: DetailActions.contentDetailRequest,
 }, dispatch);
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = createStructuredSelector({
+  content: makeSelectContentDetail(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPostPage);
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditPage));
