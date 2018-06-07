@@ -26,7 +26,6 @@ class Search extends Component <Props> {
     this.props.searchFunction(this.state);
   }
 
-
   render() {
     return (
       <Row style={{ justifyContent: 'flex-end' }}>
@@ -36,7 +35,7 @@ class Search extends Component <Props> {
               <Input
                 value={this.state.query}
                 onChange={e => this.onInputChange(e)}
-                style={{border: '1px solid #17a2b8'}}
+                style={{ border: '1px solid #17a2b8' }}
               />
               <Button
                 type="submit"

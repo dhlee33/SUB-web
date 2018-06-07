@@ -28,6 +28,7 @@ class NewPostPage extends React.Component <Props, State> {
     super(props);
     this.state = {
       contentType: 'sales',
+      bookSelected: false,
       title: '',
       content: '',
       department: '',
@@ -44,7 +45,7 @@ class NewPostPage extends React.Component <Props, State> {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.newPost(this.state);
+    this.props.newPost(_.omit(this.state, 'bookSelected'));
   }
 
   render() {
@@ -84,20 +85,20 @@ class NewPostPage extends React.Component <Props, State> {
           {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" />}
           <FormGroup>
             <Label>책 제목</Label>
-            <Input value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>저자</Label>
-            <Input value={this.state.author} onChange={({ target }) => this.setState({ author: target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.author} onChange={({ target }) => this.setState({ author: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>출판사</Label>
-            <Input value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>원가</Label>
             <InputGroup>
-              <Input type="number" value={this.state.priceStandard} onChange={({ target }) => this.setState({ priceStandard: target.value })} />
+              <Input disabled={this.state.bookSelected} type="number" value={this.state.priceStandard} onChange={({ target }) => this.setState({ priceStandard: target.value })} />
               <InputGroupAddon>
               원
             </InputGroupAddon>
