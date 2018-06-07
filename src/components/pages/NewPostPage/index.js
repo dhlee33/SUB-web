@@ -133,6 +133,7 @@ class NewPostPage extends React.Component <Props, State> {
             <Input onChange={({ target }) => this.setState({ contact: target.value })} />
           </FormGroup>
           <Button onClick={this.handleSubmit}>등록하기</Button>
+          <hr />
         </Form>
       </Container>
     );

@@ -42,10 +42,12 @@ class UpperBar extends React.Component <Props, State> {
     return (
       <div>
         <Navbar
-          color="light"
           light
           expand="md"
-          style={{borderRadius:'15px'}}
+          style={{
+            borderBottom: '1px solid #17a2b8',
+            backgroundColor: 'white',
+          }}
         >
           <NavbarBrand href="/">
             <b>SNU-USEDBOOK</b>

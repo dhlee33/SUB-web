@@ -145,7 +145,8 @@ class EditPage extends React.Component <Props, State> {
             <Label>연락처</Label>
             <Input value={this.state.contact} onChange={({ target }) => this.setState({ contact: target.value })} />
           </FormGroup>
-          <Button onClick={this.handleSubmit}>등록하기</Button>
+          <Button onClick={this.handleSubmit}>수정하기</Button>
+          <hr />
         </Form>
       </Container>
     );

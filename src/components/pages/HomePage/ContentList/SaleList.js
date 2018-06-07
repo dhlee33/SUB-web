@@ -11,8 +11,15 @@ const SaleList = ({ contentList }) => {
       {contentList &&
         contentList.toJS().map(s =>
           <div key={s.id} style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
-            <Card className="contentCard" style={{ width: '90%' }}>
-              <CardHeader className="contentCardHeader">
+            <Card outline color="info" className="contentCard" style={{ width: '90%' }}>
+              <CardHeader
+                className="contentCardHeader"
+                inverse
+                style={{
+                  backgroundColor: 'white',
+                  borderBottom: '1px solid #17a2b8',
+                }}
+              >
                 <h4>{s.title}</h4>
                 <span>
                   <FaUser />&nbsp;{_.get(s.user, 'nickname')}&nbsp;&nbsp;
@@ -37,8 +44,20 @@ const SaleList = ({ contentList }) => {
                     <p><b>저자: </b> {s.author}</p>
                     <p><b>출판사: </b> {s.publisher}</p>
                     <p><b>가격: </b>{s.price} 원</p>
-                    <Button style={{ width: '100%', marginBottom: '10px' }} href={`/saledetail/${s.id}`}>상세 보기</Button>
-                    <Button color="danger" style={{ width: '100%' }} href={`/saledetail/${s.id}`}>장바구니</Button>
+                    <Button
+                      color="info"
+                      style={{ width: '100%', marginBottom: '10px' }}
+                      href={`/saledetail/${s.id}`}
+                    >
+                      상세 보기
+                    </Button>
+                    <Button
+                      color="danger"
+                      style={{ width: '100%' }}
+                      href={`/saledetail/${s.id}`}
+                    >
+                      장바구니
+                    </Button>
                   </Col>
                 </Row>
               </CardBody>

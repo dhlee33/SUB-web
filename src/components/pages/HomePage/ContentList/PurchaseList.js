@@ -26,7 +26,7 @@ const PurchaseList = ({ contentList, history }) => {
           style={{ cursor: 'pointer' }}
         >
           <td>
-            {p.bookTitle}
+            {p.bookTitle}&nbsp;
             <Badge color="primary">
               {p.purchase_comments ? p.purchase_comments.length : 0}
             </Badge>
