@@ -2,7 +2,7 @@ import { take, call, put, takeLatest } from 'redux-saga/effects';
 import api from '../../../services/api';
 import { Actions, Types } from './reducer';
 
-export function* watchFetchSaleDetail() {
+export function* watchFetchContentDetail() {
   yield takeLatest(Types.CONTENT_DETAIL_REQUEST, fetchContentDetail);
 }
 
@@ -15,11 +15,11 @@ export function* fetchContentDetail({ contentType, id }) {
   }
 }
 
-export function* watchGetSaleCommentsRequest() {
-  yield takeLatest(Types.CONTENT_COMMENT_REQUEST, getSaleComments);
+export function* watchGetCommentsRequest() {
+  yield takeLatest(Types.CONTENT_COMMENT_REQUEST, getComments);
 }
 
-export function* getSaleComments({ contentType, id }) {
+export function* getComments({ contentType, id }) {
   try {
     const response = yield api.get(`transaction/${contentType}/${id}/comments`);
     yield put(Actions.contentCommentSuccess(response));
@@ -28,11 +28,11 @@ export function* getSaleComments({ contentType, id }) {
   }
 }
 
-export function* watchNewSaleCommentRequest() {
-  yield takeLatest(Types.NEW_COMMENT_REQUEST, newSaleComment);
+export function* watchNewCommentRequest() {
+  yield takeLatest(Types.NEW_COMMENT_REQUEST, newComment);
 }
 
-export function* newSaleComment({ contentType, data }) {
+export function* newComment({ contentType, data }) {
   try {
     yield api.post(`transaction/${contentType}/comments`, data);
     yield put(Actions.newCommentSuccess());
@@ -69,9 +69,9 @@ export function* contentDelete({ contentType, id }) {
 
 
 export default [
-  watchFetchSaleDetail,
-  watchGetSaleCommentsRequest,
-  watchNewSaleCommentRequest,
+  watchFetchContentDetail,
+  watchGetCommentsRequest,
+  watchNewCommentRequest,
   watchCompleteRequest,
   watchDeleteRequest,
 ];

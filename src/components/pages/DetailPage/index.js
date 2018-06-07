@@ -170,8 +170,8 @@ class DetailPage extends React.Component <Props, State> {
                 onChange={({ target }) => this.setState({ newComment: target.value })}
               />
               <Button type="submit">
-            등록
-          </Button>
+                등록
+              </Button>
             </InputGroup>
           </Form>
         </div>
