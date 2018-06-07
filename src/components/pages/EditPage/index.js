@@ -37,6 +37,7 @@ class EditPage extends React.Component <Props, State> {
       price: 0,
       contact: '',
       priceStandard: 0,
+      bookSelected: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -50,22 +51,23 @@ class EditPage extends React.Component <Props, State> {
     if (!this.props.content && nextProps.content) {
       const contentDetail = nextProps.content.toJS();
       const { title, content, price, department, contact, bookTitle, author, publisher } = contentDetail;
+      let interparkImage = '';
       let priceStandard = 0;
       if (contentDetail.book) {
         priceStandard = contentDetail.book.priceStandard;
+        interparkImage = contentDetail.book.image;
       }
-      this.setState({ title, content, price, department, contact, bookTitle, author, publisher, priceStandard });
+      this.setState({ title, content, price, department, contact, bookTitle, author, publisher, priceStandard, interparkImage, bookSelected: true });
     }
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.edit(this.props.type, this.props.match.params.id, this.state);
+    this.props.edit(this.props.type, this.props.match.params.id, _.omit(this.state, 'bookSelected'));
     window.location.replace(`/${this.props.type}detail/${this.props.match.params.id}`);
   }
 
   render() {
-    console.log(this.props);
     if (!this.props.content) {
       return (<div>loading...</div>);
     }
@@ -91,26 +93,26 @@ class EditPage extends React.Component <Props, State> {
           </FormGroup>
         </Form>
         <hr />
-        <h4>책 정보 <InterparkSearch handleBook={b => this.setState(b)} /></h4>
+        <h4>책 정보 <InterparkSearch bookSelected={this.state.bookSelected} handleBook={b => this.setState(b)} /></h4>
         <hr />
         <Form>
           {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" />}
           <FormGroup>
             <Label>책 제목</Label>
-            <Input value={this.state.bookTitle} onChange={e => this.setState({ bookTitle: e.target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.bookTitle} onChange={e => this.setState({ bookTitle: e.target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>저자</Label>
-            <Input value={this.state.author} onChange={e => this.setState({ author: e.target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.author} onChange={e => this.setState({ author: e.target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>출판사</Label>
-            <Input value={this.state.publisher} onChange={e => this.setState({ publisher: e.target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.publisher} onChange={e => this.setState({ publisher: e.target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>원가</Label>
             <InputGroup>
-              <Input type="number" value={this.state.priceStandard} onChange={e => this.setState({ priceStandard: e.target.value })} />
+              <Input disabled={this.state.bookSelected} type="number" value={this.state.priceStandard} onChange={e => this.setState({ priceStandard: e.target.value })} />
               <InputGroupAddon>
               원
             </InputGroupAddon>

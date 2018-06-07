@@ -11,6 +11,7 @@ const search = (query) => {
 
 type Props = {
   handleBook: Function,
+  bookSelected: boolean,
 };
 
 class InterparkSearch extends Component <Props> {
@@ -21,7 +22,7 @@ class InterparkSearch extends Component <Props> {
       query: '',
       bookList: [],
       isFetching: false,
-      bookSelected: false,
+      bookSelected: this.props.bookSelected,
     };
 
     this.toggleModalButton = this.toggleModalButton.bind(this);
@@ -72,9 +73,10 @@ class InterparkSearch extends Component <Props> {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div style={{ display: 'inline-block' }}>
-        <Button onClick={this.toggleModalButton} color="link">{this.state.bookSelected ? '취소' : '책 정보 검색'}</Button>
+        <Button onClick={this.toggleModalButton} color="link">{this.state.bookSelected ? '책 정보 초기화' : '책 정보 검색'}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggleModalButton} size="lg">
           <ModalHeader toggle={this.toggleModalButton}>책 정보 검색</ModalHeader>
           <ModalBody>
