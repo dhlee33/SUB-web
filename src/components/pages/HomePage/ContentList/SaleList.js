@@ -4,7 +4,7 @@ import { FaUser, FaCalendarO } from 'react-icons/lib/fa';
 import moment from 'moment';
 import _ from 'lodash';
 
-const SaleList = ({ contentList }) => {
+const SaleList = ({ contentList, postInterest }) => {
   const now = moment().format('YYYY/MM/DD');
   return (
     <div>
@@ -28,7 +28,7 @@ const SaleList = ({ contentList }) => {
                   <FaCalendarO />&nbsp;{now === moment(s.updated).format('YYYY/MM/DD') ? moment(s.updated).format('HH:mm') : moment(s.updated).format('YYYY/MM/DD')}&nbsp;&nbsp;
                 </span>
                 <span>댓글: </span>
-                <span style={{color: 'blue'}}>
+                <span style={{ color: 'blue' }}>
                   {s.sale_comments ? s.sale_comments.length : 0}
                 </span>
                 <span>개 </span>
@@ -52,9 +52,9 @@ const SaleList = ({ contentList }) => {
                       상세 보기
                     </Button>
                     <Button
+                      onClick={() => confirm('장바구니에 추가하시겠습니까?') && postInterest('sale', s.id)}
                       color="danger"
                       style={{ width: '100%' }}
-                      href={`/saledetail/${s.id}`}
                     >
                       장바구니
                     </Button>
