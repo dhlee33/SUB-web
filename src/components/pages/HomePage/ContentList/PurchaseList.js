@@ -18,7 +18,7 @@ const PurchaseList = ({ contentList, history }) => {
         </tr>
       </thead>
       <tbody>
-        {contentList &&
+        {!_.isEmpty(contentList) &&
       contentList.toJS().map(p =>
         <tr
           key={p.id}
@@ -27,10 +27,14 @@ const PurchaseList = ({ contentList, history }) => {
         >
           <td>
             {p.bookTitle}&nbsp;
+            {p.purchase_comments !== 0 &&
             <Badge color="primary">
-              {p.purchase_comments ? p.purchase_comments.length : 0}
+              {p.purchase_comments}
             </Badge>
+            }
+
             {p.isComplete && <Badge color="info">완료됨</Badge>}
+
           </td>
           <td>{p.price} 원</td>
           <td>{_.get(p.user, 'nickname')}</td>

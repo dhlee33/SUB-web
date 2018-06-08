@@ -17,6 +17,9 @@ export const { Types, Creators: Actions } = createActions({
   deleteRequest: ['contentType', 'id'],
   deleteSuccess: null,
   deleteFailure: ['error'],
+  interestRequest: ['contentType', 'id'],
+  interestSuccess: null,
+  interestFailure: ['error'],
 });
 
 export const initialState = fromJS({
@@ -31,6 +34,10 @@ export const initialState = fromJS({
     error: null,
   },
   newComment: {
+    isFetching: false,
+    error: null,
+  },
+  interest: {
     isFetching: false,
     error: null,
   },
@@ -72,6 +79,15 @@ export const success = (state) =>
 export const failure = (state, { error }) =>
   state.merge({ sailDetail: { isFetching: false, error } });
 
+export const interestRequest = (state) =>
+  state.mergeDeep({ user: { isFetching: true, payload: null, error: null } });
+
+export const interestSuccess = (state, { error }) =>
+  state.mergeDeep({ user: { isFetching: false, error: null } });
+
+export const interestFailure = (state, { error }) =>
+  state.mergeDeep({ user: { isFetching: false, payload: null, error } });
+
 const handlers = {
   [Types.CONTENT_DETAIL_REQUEST]: contentDetailRequest,
   [Types.CONTENT_DETAIL_SUCCESS]: contentDetailSuccess,
@@ -88,6 +104,9 @@ const handlers = {
   [Types.DELETE_REQUEST]: request,
   [Types.DELETE_SUCCESS]: request,
   [Types.DELETE_FAILURE]: failure,
+  [Types.INTEREST_REQUEST]: interestRequest,
+  [Types.INTEREST_SUCCESS]: interestSuccess,
+  [Types.INTEREST_FAILURE]: interestFailure,
 };
 
 export default createReducer(initialState, handlers);
