@@ -11,7 +11,7 @@ export function* edit({ contentType, id, data }) {
   try {
     const response = yield api.put(`transaction/${contentType}/${id}`, data);
     yield put(Actions.newPostSuccess(response));
-    window.location.replace('/');
+    window.location.replace(`/${contentType}detail/${id}`);
   } catch (error) {
     yield put(Actions.newPostFailure(error.response));
   }

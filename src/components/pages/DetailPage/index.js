@@ -14,11 +14,11 @@ import { makeSelectProfile } from '../ProfilePage/selector';
 
 
 type Props = {
-  content: Map<string, any>,
-  comments: Map<string, any>,
-  newCommentState: Map<string, any>,
-  fetchContent: (contentTYpe: String, id: number) => void,
-  getComments: (contentTYpe: String, id: number) => void,
+  content: Map<String, any>,
+  comments: Map<String, any>,
+  newCommentState: Map<String, any>,
+  fetchContent: (contentType: String, id: number) => void,
+  getComments: (contentType: String, id: number) => void,
   postNewComment: (contentTYpe: String, data: Object) => void,
   profile: Object,
   complete: Function,

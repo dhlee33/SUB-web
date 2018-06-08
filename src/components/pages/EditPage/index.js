@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon, ButtonGroup } from 'reactstrap';
+import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon, ButtonGroup, Col, Row } from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import _ from 'lodash';
 import { Creators as Actions } from './reducer';
@@ -40,6 +40,7 @@ class EditPage extends React.Component <Props, State> {
       bookSelected: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addImage = this.addImage.bind(this);
   }
 
   componentDidMount() {
@@ -61,17 +62,32 @@ class EditPage extends React.Component <Props, State> {
     }
   }
 
+  addImage(e) {
+    e.preventDefault();
+    const reader = new FileReader();
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', image);
+
+    reader.onloadend = () => {
+      this.setState({
+        image: formData,
+        imagePreviewUrl: reader.result,
+      }, () => console.log(this.state));
+    };
+
+    reader.readAsDataURL(image);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    this.props.edit(this.props.type, this.props.match.params.id, _.omit(this.state, 'bookSelected'));
-    window.location.replace(`/${this.props.type}detail/${this.props.match.params.id}`);
+    this.props.edit(this.props.type, this.props.match.params.id, _.omit(this.state, ['bookSelected', 'imagePreviewUrl']));
   }
 
   render() {
     if (!this.props.content) {
       return (<div>loading...</div>);
     }
-
     return (
       <Container>
         {
@@ -96,7 +112,10 @@ class EditPage extends React.Component <Props, State> {
         <h4>책 정보 <InterparkSearch bookSelected={this.state.bookSelected} handleBook={b => this.setState(b)} /></h4>
         <hr />
         <Form>
-          {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" />}
+          <FormGroup>
+            {this.state.interparkImage && <div style={{ display: 'inline-block' }}><img src={this.state.interparkImage} alt="book" style={{ height: '300px', width: '170px' }} /></div>}
+            {this.state.image && <div style={{ display: 'inline-block' }}><img src={this.state.imagePreviewUrl} alt="book" style={{ height: '300px', width: '170px' }} /></div>}
+          </FormGroup>
           <FormGroup>
             <Label>책 제목</Label>
             <Input disabled={this.state.bookSelected} value={this.state.bookTitle} onChange={e => this.setState({ bookTitle: e.target.value })} />
@@ -132,7 +151,12 @@ class EditPage extends React.Component <Props, State> {
             </InputGroup>
           </FormGroup>
           <FormGroup>
-            <Button>책 사진 추가</Button>
+            <Label>책 사진 추가</Label>
+            <Input
+              type="file"
+              onChange={this.addImage}
+              accept=".jpg,.png"
+            />
           </FormGroup>
         </Form>
         <hr />

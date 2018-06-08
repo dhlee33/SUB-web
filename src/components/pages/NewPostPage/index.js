@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
+import _ from 'lodash';
 import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon, ButtonGroup } from 'reactstrap';
 import { Creators as Actions } from './reducer';
 import InterparkSearch from '../../../utils/InterparkSearch';
@@ -39,13 +40,30 @@ class NewPostPage extends React.Component <Props, State> {
       priceStandard: 0,
       contact: '',
       interparkImage: '',
+      image: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addImage = this.addImage.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.newPost(_.omit(this.state, 'bookSelected'));
+    this.props.newPost(_.omit(this.state, ['bookSelected', 'imagePreviewUrl']));
+  }
+
+  addImage(e) {
+    e.preventDefault();
+    const reader = new FileReader();
+    const image = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        image,
+        imagePreviewUrl: reader.result,
+      }, () => console.log(this.state));
+    };
+
+    reader.readAsDataURL(image);
   }
 
   render() {
@@ -82,7 +100,8 @@ class NewPostPage extends React.Component <Props, State> {
         <h4>책 정보 <InterparkSearch handleBook={b => this.setState(b)} /></h4>
         <hr />
         <Form>
-          {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" />}
+          {this.state.interparkImage && <div style={{ display: 'inline-block' }}><img src={this.state.interparkImage} alt="book" style={{ height: '300px', width: '170px' }} /></div>}
+          {this.state.image && <div style={{ display: 'inline-block' }}><img src={this.state.imagePreviewUrl} alt="book" style={{ height: '300px', width: '170px' }} /></div>}
           <FormGroup>
             <Label>책 제목</Label>
             <Input disabled={this.state.bookSelected} value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
@@ -118,7 +137,12 @@ class NewPostPage extends React.Component <Props, State> {
             </InputGroup>
           </FormGroup>
           <FormGroup>
-            <Button>책 사진 추가</Button>
+            <Label>책 사진 추가</Label>
+            <Input
+              type="file"
+              onChange={this.addImage}
+              accept=".jpg,.png"
+            />
           </FormGroup>
         </Form>
         <hr />
