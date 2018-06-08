@@ -18,6 +18,7 @@ import Search from '../../../../containers/Search';
 import { getToken } from '../../../../utils/localStorage';
 import SaleList from './SaleList';
 import PurchaseList from './PurchaseList';
+import { Actions as DetailActions } from '../../DetailPage/reducer';
 
 
 type Props = {
@@ -88,11 +89,17 @@ class ContentList extends Component <Props, State> {
           searchFunction={this.search}
           query={this.state.query}
         />
-        <Nav tabs>
+        <Nav
+          tabs
+          style={{
+            borderBottom: '1px solid #17a2b8',
+          }}
+        >
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === 'sale' })}
               onClick={() => { this.toggleTab('sale'); }}
+              color="info"
             >
             팝니다
           </NavLink>
@@ -107,7 +114,7 @@ class ContentList extends Component <Props, State> {
           </NavItem>
         </Nav>
         <br />
-        {this.state.activeTab === 'sale' ? <SaleList contentList={this.props.content} /> : <PurchaseList contentList={this.props.content} />}
+        {this.state.activeTab === 'sale' ? <SaleList postInterest={this.props.postInterest} contentList={this.props.content} /> : <PurchaseList contentList={this.props.content} />}
         <Row>
           <Col sm={10}>
             <Paginator
@@ -117,7 +124,13 @@ class ContentList extends Component <Props, State> {
             />
           </Col>
           <Col sm={2}>
-            <Button disabled={!getToken()} href="/newpost">글 등록</Button>
+            <Button
+              disabled={!getToken()}
+              href="/newpost"
+              color="info"
+            >
+              글 등록
+            </Button>
           </Col>
         </Row>
       </Container>
@@ -132,6 +145,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchContent: Actions.contentListRequest,
+  postInterest: DetailActions.interestRequest,
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ContentList));

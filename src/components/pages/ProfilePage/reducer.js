@@ -65,6 +65,9 @@ export const profileSuccess = (state, { profile }) =>
 export const profileFailure = (state, { error }) =>
   state.mergeDeep({ user: { isFetching: false, profile: null, error } });
 
+
+
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {

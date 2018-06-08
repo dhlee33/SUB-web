@@ -6,3 +6,7 @@
 .contentCardHeader:hover {
 }
 
+.nav-tabs .nav-link.active {
+  border-color: #17a2b8 #17a2b8 #fff
+}
+

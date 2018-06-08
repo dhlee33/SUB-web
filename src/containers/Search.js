@@ -26,15 +26,23 @@ class Search extends Component <Props> {
     this.props.searchFunction(this.state);
   }
 
-
   render() {
     return (
       <Row style={{ justifyContent: 'flex-end' }}>
         <Col sm={5}>
           <Form onSubmit={e => this.onSubmit(e)}>
             <InputGroup>
-              <Input value={this.state.query} onChange={e => this.onInputChange(e)} />
-              <Button type="submit">검색</Button>
+              <Input
+                value={this.state.query}
+                onChange={e => this.onInputChange(e)}
+                style={{ border: '1px solid #17a2b8' }}
+              />
+              <Button
+                type="submit"
+                color="info"
+              >
+                검색
+              </Button>
             </InputGroup>
           </Form>
         </Col>

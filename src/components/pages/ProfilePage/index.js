@@ -112,7 +112,7 @@ class ProfilePage extends React.Component <Props> {
           }
         </Form>
         <hr />
-        <h2>구매 정보 </h2>
+        <h2>판매 정보 </h2>
         <Table hover>
           <thead>
             <tr>
@@ -133,13 +133,13 @@ class ProfilePage extends React.Component <Props> {
                   <td>{p.bookTitle}</td>
                   <td>{p.price} 원</td>
                   <td>{now === moment(p.updated).format('YYYY/MM/DD') ? moment(p.updated).format('HH:mm') : moment(p.updated).format('YYYY/MM/DD')}</td>
-                  <td>{p.purchase_comment ? p.purchase_comment.length : 0 }</td>
+                  <td>{p.sale_comments ? p.sale_comments.length : 0 }</td>
                 </tr>
               )}
           </tbody>
         </Table>
         <hr />
-        <h2>판매 정보</h2>
+        <h2>구매 정보</h2>
         <Table hover>
           <thead>
             <tr>
@@ -160,7 +160,7 @@ class ProfilePage extends React.Component <Props> {
                 <td>{p.bookTitle}</td>
                 <td>{p.price} 원</td>
                 <td>{now === moment(p.updated).format('YYYY/MM/DD') ? moment(p.updated).format('HH:mm') : moment(p.updated).format('YYYY/MM/DD')}</td>
-                <td>{p.sale_comment ? p.sale_comment.length : 0}</td>
+                <td>{p.purchase_comments ? p.purchase_comments.length : 0}</td>
               </tr>
             )}
           </tbody>

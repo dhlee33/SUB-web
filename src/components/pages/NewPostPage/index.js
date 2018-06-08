@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Container, Input, Button, Form, FormGroup, Label, InputGroup, InputGroupAddon, ButtonGroup } from 'reactstrap';
 import { Creators as Actions } from './reducer';
 import InterparkSearch from '../../../utils/InterparkSearch';
 import { getToken } from '../../../utils/localStorage';
@@ -28,6 +28,7 @@ class NewPostPage extends React.Component <Props, State> {
     super(props);
     this.state = {
       contentType: 'sales',
+      bookSelected: false,
       title: '',
       content: '',
       department: '',
@@ -44,7 +45,7 @@ class NewPostPage extends React.Component <Props, State> {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.newPost(this.state);
+    this.props.newPost(_.omit(this.state, 'bookSelected'));
   }
 
   render() {
@@ -63,33 +64,41 @@ class NewPostPage extends React.Component <Props, State> {
           </FormGroup>
           <FormGroup>
             <Label>글 종류</Label>
-            <Input type="select" onChange={({ target }) => this.setState({ contentType: target.value })}>
-              <option value="sales">팝니다</option>
-              <option value="purchases">삽니다</option>
-            </Input>
+            <div>
+              <ButtonGroup>
+                <Button
+                  onClick={() => this.setState({ contentType: 'sales' })}
+                  color={this.state.contentType === 'sales' ? 'primary' : 'secondary'}
+                >팝니다</Button>
+                <Button
+                  onClick={() => this.setState({ contentType: 'purchases' })}
+                  color={this.state.contentType === 'purchases' ? 'primary' : 'secondary'}
+                >삽니다</Button>
+              </ButtonGroup>
+            </div>
           </FormGroup>
         </Form>
         <hr />
         <h4>책 정보 <InterparkSearch handleBook={b => this.setState(b)} /></h4>
         <hr />
         <Form>
-          {this.state.bookPicture && <img src={this.state.bookPicture} alt="book" />}
+          {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" />}
           <FormGroup>
             <Label>책 제목</Label>
-            <Input value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.bookTitle} onChange={({ target }) => this.setState({ bookTitle: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>저자</Label>
-            <Input value={this.state.author} onChange={({ target }) => this.setState({ author: target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.author} onChange={({ target }) => this.setState({ author: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>출판사</Label>
-            <Input value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
+            <Input disabled={this.state.bookSelected} value={this.state.publisher} onChange={({ target }) => this.setState({ publisher: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>원가</Label>
             <InputGroup>
-              <Input type="number" value={this.state.priceStandard} onChange={({ target }) => this.setState({ priceStandard: target.value })} />
+              <Input disabled={this.state.bookSelected} type="number" value={this.state.priceStandard} onChange={({ target }) => this.setState({ priceStandard: target.value })} />
               <InputGroupAddon>
               원
             </InputGroupAddon>
@@ -125,6 +134,7 @@ class NewPostPage extends React.Component <Props, State> {
             <Input onChange={({ target }) => this.setState({ contact: target.value })} />
           </FormGroup>
           <Button onClick={this.handleSubmit}>등록하기</Button>
+          <hr />
         </Form>
       </Container>
     );

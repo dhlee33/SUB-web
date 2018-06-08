@@ -11,6 +11,7 @@ const search = (query) => {
 
 type Props = {
   handleBook: Function,
+  bookSelected: boolean,
 };
 
 class InterparkSearch extends Component <Props> {
@@ -21,6 +22,7 @@ class InterparkSearch extends Component <Props> {
       query: '',
       bookList: [],
       isFetching: false,
+      bookSelected: this.props.bookSelected,
     };
 
     this.toggleModalButton = this.toggleModalButton.bind(this);
@@ -36,13 +38,28 @@ class InterparkSearch extends Component <Props> {
       publisher: b.publisher,
       interparkImage: b.coverLargeUrl,
       priceStandard: b.priceStandard,
+      bookSelected: true,
     };
     this.props.handleBook(book);
-    this.setState({ modal: false });
+    this.setState({ modal: false, bookSelected: true });
   }
 
   toggleModalButton() {
-    this.setState({ modal: !this.state.modal });
+    if (this.state.bookSelected) {
+      this.setState({ bookSelected: false });
+      const book = {
+        itemId: '',
+        bookTitle: '',
+        author: '',
+        publisher: '',
+        interparkImage: '',
+        priceStandard: 0,
+        bookSelected: false,
+      };
+      this.props.handleBook(book);
+    } else {
+      this.setState({ modal: !this.state.modal });
+    }
   }
 
   toggleSearchButton(e) {
@@ -56,9 +73,10 @@ class InterparkSearch extends Component <Props> {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div style={{ display: 'inline-block' }}>
-        <Button onClick={this.toggleModalButton} color="link">책 정보 검색</Button>
+        <Button onClick={this.toggleModalButton} color="link">{this.state.bookSelected ? '책 정보 초기화' : '책 정보 검색'}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggleModalButton} size="lg">
           <ModalHeader toggle={this.toggleModalButton}>책 정보 검색</ModalHeader>
           <ModalBody>
