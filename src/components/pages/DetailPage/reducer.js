@@ -80,13 +80,13 @@ export const failure = (state, { error }) =>
   state.merge({ sailDetail: { isFetching: false, error } });
 
 export const interestRequest = (state) =>
-  state.mergeDeep({ user: { isFetching: true, payload: null, error: null } });
+  state.mergeDeep({ interest: { isFetching: true, payload: null, error: null } });
 
 export const interestSuccess = (state, { error }) =>
-  state.mergeDeep({ user: { isFetching: false, error: null } });
+  state.mergeDeep({ interest: { isFetching: false, error: null } });
 
 export const interestFailure = (state, { error }) =>
-  state.mergeDeep({ user: { isFetching: false, payload: null, error } });
+  state.mergeDeep({ interest: { isFetching: false, payload: null, error } });
 
 const handlers = {
   [Types.CONTENT_DETAIL_REQUEST]: contentDetailRequest,
@@ -102,7 +102,7 @@ const handlers = {
   [Types.COMPLETE_SUCCESS]: success,
   [Types.COMPLETE_FAILURE]: failure,
   [Types.DELETE_REQUEST]: request,
-  [Types.DELETE_SUCCESS]: request,
+  [Types.DELETE_SUCCESS]: success,
   [Types.DELETE_FAILURE]: failure,
   [Types.INTEREST_REQUEST]: interestRequest,
   [Types.INTEREST_SUCCESS]: interestSuccess,

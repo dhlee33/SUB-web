@@ -44,40 +44,38 @@ class InterestPage extends React.Component <Props> {
             </tr>
           </thead>
           <tbody>
-            {!_.isEmpty(interest) &&
-          interest.my_interest_sale.map(s => {
-            const { sale } = s;
-            return (<tr
-              key={sale.id}
-              style={{ cursor: 'pointer' }}
-            >
-              <td>{sale.bookTitle}&nbsp;
-                {sale.sale_comments.length !== 0 &&
-                <Badge color="primary">
-                  {sale.sale_comments.length}
-                </Badge>
+            {!_.isEmpty(interest) && interest.my_interest_sale.map(s => {
+              const { sale } = s;
+              return (<tr
+                key={sale.id}
+                style={{ cursor: 'pointer' }}
+              >
+                <td>{sale.bookTitle}&nbsp;
+                  {sale.sale_comments.length !== 0 &&
+                  <Badge color="primary">
+                    {sale.sale_comments.length}
+                  </Badge>
                 }
-                {sale.isComplete && <Badge color="info">완료됨</Badge>
+                  {sale.isComplete && <Badge color="info">완료됨</Badge>
                 }
-
-              </td>
-              <td>{sale.price} 원</td>
-              <td>{now === moment(sale.updated)
-                .format('YYYY/MM/DD') ? moment(sale.updated)
-                .format('HH:mm') : moment(sale.updated)
-                .format('YYYY/MM/DD')}</td>
-              <td>
-                <Button color="info" onClick={() => window.location.replace(`/saledetail/${sale.id}`)}>
+                </td>
+                <td>{sale.price} 원</td>
+                <td>{now === moment(sale.updated)
+                  .format('YYYY/MM/DD') ? moment(sale.updated)
+                  .format('HH:mm') : moment(sale.updated)
+                  .format('YYYY/MM/DD')}</td>
+                <td>
+                  <Button color="info" onClick={() => window.location.replace(`/saledetail/${sale.id}`)}>
                   자세히 보기
-                </Button>
-              </td>
-              <td>
-                <Button color="danger" onClick={() => this.handleDelete('sale', sale.id)}>
+                  </Button>
+                </td>
+                <td>
+                  <Button color="danger" onClick={() => this.handleDelete('sale', sale.id)}>
                   지우기
-                </Button>
-              </td>
-            </tr>);
-          })}
+                  </Button>
+                </td>
+              </tr>);
+            })}
           </tbody>
         </Table>
         <br />
@@ -94,40 +92,39 @@ class InterestPage extends React.Component <Props> {
             </tr>
           </thead>
           <tbody>
-            {!_.isEmpty(interest) &&
-          interest.my_interest_purchase.map(p => {
-            const { purchase } = p;
-            return (<tr
-              key={purchase.id}
-              style={{ cursor: 'pointer' }}
-            >
-              <td>{purchase.bookTitle}&nbsp;
-                {purchase.purchase_comments.length !== 0 &&
-                <Badge color="primary">
-                  {purchase.purchase_comments.length}
-                </Badge>
+            {!_.isEmpty(interest) && interest.my_interest_purchase.map(p => {
+              const { purchase } = p;
+              return (<tr
+                key={purchase.id}
+                style={{ cursor: 'pointer' }}
+              >
+                <td>{purchase.bookTitle}&nbsp;
+                  {purchase.purchase_comments.length !== 0 &&
+                  <Badge color="primary">
+                    {purchase.purchase_comments.length}
+                  </Badge>
                 }
-                {purchase.isComplete && <Badge color="info">완료됨</Badge>
+                  {purchase.isComplete && <Badge color="info">완료됨</Badge>
                 }
 
-              </td>
-              <td>{purchase.price} 원</td>
-              <td>{now === moment(purchase.updated)
+                </td>
+                <td>{purchase.price} 원</td>
+                <td>{now === moment(purchase.updated)
                 .format('YYYY/MM/DD') ? moment(purchase.updated)
                 .format('HH:mm') : moment(purchase.updated)
                 .format('YYYY/MM/DD')}</td>
-              <td>
-                <Button color="info" onClick={() => window.location.replace(`/purchasedetail/${purchase.id}`)}>
+                <td>
+                  <Button color="info" onClick={() => window.location.replace(`/purchasedetail/${purchase.id}`)}>
                   자세히 보기
                 </Button>
-              </td>
-              <td>
-                <Button color="danger" onClick={() => this.handleDelete('purchase', purchase.id)}>
+                </td>
+                <td>
+                  <Button color="danger" onClick={() => this.handleDelete('purchase', purchase.id)}>
                   지우기
                 </Button>
-              </td>
-            </tr>);
-          })}
+                </td>
+              </tr>);
+            })}
           </tbody>
         </Table>
       </Container>
