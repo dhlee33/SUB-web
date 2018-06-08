@@ -65,12 +65,12 @@ class InterestPage extends React.Component <Props> {
                   .format('HH:mm') : moment(sale.updated)
                   .format('YYYY/MM/DD')}</td>
                 <td>
-                  <Button color="info" onClick={() => window.location.replace(`/saledetail/${sale.id}`)}>
+                  <Button size="sm" color="info" onClick={() => window.location.replace(`/saledetail/${sale.id}`)}>
                   자세히 보기
                   </Button>
                 </td>
                 <td>
-                  <Button color="danger" onClick={() => this.handleDelete('sale', sale.id)}>
+                  <Button size="sm" color="danger" onClick={() => this.handleDelete('sale', sale.id)}>
                   지우기
                   </Button>
                 </td>
@@ -114,12 +114,12 @@ class InterestPage extends React.Component <Props> {
                 .format('HH:mm') : moment(purchase.updated)
                 .format('YYYY/MM/DD')}</td>
                 <td>
-                  <Button color="info" onClick={() => window.location.replace(`/purchasedetail/${purchase.id}`)}>
+                  <Button size="sm" color="info" onClick={() => window.location.replace(`/purchasedetail/${purchase.id}`)}>
                   자세히 보기
                 </Button>
                 </td>
                 <td>
-                  <Button color="danger" onClick={() => this.handleDelete('purchase', purchase.id)}>
+                  <Button size="sm" color="danger" onClick={() => this.handleDelete('purchase', purchase.id)}>
                   지우기
                 </Button>
                 </td>
