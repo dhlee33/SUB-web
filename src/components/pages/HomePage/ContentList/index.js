@@ -18,6 +18,7 @@ import Search from '../../../../containers/Search';
 import { getToken } from '../../../../utils/localStorage';
 import SaleList from './SaleList';
 import PurchaseList from './PurchaseList';
+import { Actions as DetailActions } from '../../DetailPage/reducer';
 
 
 type Props = {
@@ -113,7 +114,7 @@ class ContentList extends Component <Props, State> {
           </NavItem>
         </Nav>
         <br />
-        {this.state.activeTab === 'sale' ? <SaleList contentList={this.props.content} /> : <PurchaseList contentList={this.props.content} />}
+        {this.state.activeTab === 'sale' ? <SaleList postInterest={this.props.postInterest} contentList={this.props.content} /> : <PurchaseList contentList={this.props.content} />}
         <Row>
           <Col sm={10}>
             <Paginator
@@ -144,6 +145,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchContent: Actions.contentListRequest,
+  postInterest: DetailActions.interestRequest,
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ContentList));

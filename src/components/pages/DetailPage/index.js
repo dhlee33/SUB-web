@@ -41,6 +41,7 @@ class DetailPage extends React.Component <Props, State> {
     this.handleComplete = this.handleComplete.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmitInterest = this.handleSubmitInterest.bind(this);
   }
 
   componentDidMount() {
@@ -88,6 +89,14 @@ class DetailPage extends React.Component <Props, State> {
 
   toggleDropdown() {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  }
+
+  handleSubmitInterest(event) {
+    event.preventDefault();
+    const confirmSubmit = confirm('장바구니에 추가하시겠습니까?');
+    if (confirmSubmit) {
+      this.props.postInterest(this.props.type, this.props.match.params.id);
+    }
   }
 
 
@@ -153,7 +162,12 @@ class DetailPage extends React.Component <Props, State> {
             <p><b>연락처: </b>{content.get('contact')}</p>
             <p><b>원가: </b>{content.getIn(['book', 'priceStandard'])} 원</p>
             <p style={{ color: 'red' }}><b>{this.props.type === 'sale' ? '중고가: ' : '희망 가격: '}</b>{content.get('price')} 원</p>
-            <Button color="danger" size="lg">장바구니</Button>
+            <Button
+              onClick={this.handleSubmitInterest}
+              color="danger"
+              size="lg"
+            >
+              장바구니</Button>
           </Col>
         </Row>
         <hr />
@@ -210,6 +224,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   postNewComment: Actions.newCommentRequest,
   complete: Actions.completeRequest,
   contentDelete: Actions.deleteRequest,
+  postInterest: Actions.interestRequest,
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailPage));
