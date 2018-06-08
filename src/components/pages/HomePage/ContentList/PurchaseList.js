@@ -27,13 +27,11 @@ const PurchaseList = ({ contentList, history }) => {
             <td>
               {p.bookTitle}&nbsp;
               {p.purchase_comments !== 0 &&
-              <Badge color="primary">
-                {p.purchase_comments}
-              </Badge>
-            }
-
+                <Badge color="primary">
+                  {p.purchase_comments}
+                </Badge>
+              }
               {p.isComplete && <Badge color="info">완료됨</Badge>}
-
             </td>
             <td>{p.price} 원</td>
             <td>{_.get(p.user, 'nickname')}</td>
