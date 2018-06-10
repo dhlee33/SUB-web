@@ -26,9 +26,9 @@ const PurchaseList = ({ contentList, history }) => {
           >
             <td>
               {p.bookTitle}&nbsp;
-              {p.purchase_comments !== 0 &&
+              {p.purchase_comments && p.purchase_comments.length !== 0 &&
                 <Badge color="primary">
-                  {p.purchase_comments}
+                  {p.purchase_comments.length}
                 </Badge>
               }
               {p.isComplete && <Badge color="info">완료됨</Badge>}

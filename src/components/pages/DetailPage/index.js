@@ -68,6 +68,7 @@ class DetailPage extends React.Component <Props, State> {
         content: this.state.newComment,
       });
     }
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   handleComplete() {

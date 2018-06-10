@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 import { deleteInterestList } from './saga';
 
 export const { Types, Creators: Actions } = createActions({
-  interestListRequest: ['contentType'],
+  interestListRequest: null,
   interestListSuccess: ['interestList'],
   interestListFailure: ['error'],
   deleteInterestRequest: ['contentType', 'id'],

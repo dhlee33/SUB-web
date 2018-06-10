@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Container, Button, Table, Badge } from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
-import { withRouter } from 'react-router-dom';
 import { FaUser, FaCalendarO } from 'react-icons/lib/fa';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,7 +18,7 @@ class InterestPage extends React.Component <Props> {
     this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
-    this.props.fetchInterest(this.props.type);
+    this.props.fetchInterest();
   }
 
   handleDelete(contentType, id) {
@@ -140,4 +139,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   deleteInterest: Actions.deleteInterestRequest,
 }, dispatch);
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InterestPage));
+export default connect(mapStateToProps, mapDispatchToProps)(InterestPage);

@@ -13,7 +13,6 @@ import { FaUser, FaCalendarO } from 'react-icons/lib/fa';
 import { Actions } from '../reducer';
 import { makeSelectContentList, makeSelectListPage } from '../selector';
 import Paginator from '../../../../containers/Paginator';
-import './ContentList.css';
 import Search from '../../../../containers/Search';
 import { getToken } from '../../../../utils/localStorage';
 import SaleList from './SaleList';
@@ -114,7 +113,9 @@ class ContentList extends Component <Props, State> {
           </NavItem>
         </Nav>
         <br />
-        {this.state.activeTab === 'sale' ? <SaleList postInterest={this.props.postInterest} contentList={this.props.content} /> : <PurchaseList contentList={this.props.content} />}
+        {this.state.activeTab === 'sale' ?
+          <SaleList postInterest={this.props.postInterest} contentList={this.props.content} />
+          : <PurchaseList contentList={this.props.content} />}
         <Row>
           <Col sm={10}>
             <Paginator
