@@ -18,24 +18,25 @@ const PurchaseList = ({ contentList, history }) => {
         </tr>
       </thead>
       <tbody>
-        {contentList &&
-      contentList.toJS().map(p =>
-        <tr
-          key={p.id}
-          onClick={() => history.push(`purchasedetail/${p.id}`)}
-          style={{ cursor: 'pointer' }}
-        >
-          <td>
-            {p.bookTitle}&nbsp;
-            <Badge color="primary">
-              {p.purchase_comments ? p.purchase_comments.length : 0}
-            </Badge>
-            {p.isComplete && <Badge color="info">완료됨</Badge>}
-          </td>
-          <td>{p.price} 원</td>
-          <td>{_.get(p.user, 'nickname')}</td>
-          <td>{now === moment(p.updated).format('YYYY/MM/DD') ? moment(p.updated).format('HH:mm') : moment(p.updated).format('YYYY/MM/DD')}</td>
-        </tr>
+        {!_.isEmpty(contentList) && contentList.toJS().map(p =>
+          <tr
+            key={p.id}
+            onClick={() => history.push(`purchasedetail/${p.id}`)}
+            style={{ cursor: 'pointer' }}
+          >
+            <td>
+              {p.bookTitle}&nbsp;
+              {p.purchase_comments !== 0 &&
+                <Badge color="primary">
+                  {p.purchase_comments}
+                </Badge>
+              }
+              {p.isComplete && <Badge color="info">완료됨</Badge>}
+            </td>
+            <td>{p.price} 원</td>
+            <td>{_.get(p.user, 'nickname')}</td>
+            <td>{now === moment(p.updated).format('YYYY/MM/DD') ? moment(p.updated).format('HH:mm') : moment(p.updated).format('YYYY/MM/DD')}</td>
+          </tr>
       )}
       </tbody>
     </Table>

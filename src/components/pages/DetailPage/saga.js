@@ -67,6 +67,19 @@ export function* contentDelete({ contentType, id }) {
   }
 }
 
+export function* watchInterestRequest() {
+  yield takeLatest(Types.INTEREST_REQUEST, postInterest);
+}
+
+export function* postInterest({ contentType, id }) {
+  try {
+    yield api.post(`transaction/${contentType}/${id}/interest`);
+    yield put(Actions.interestSuccess());
+  } catch (error) {
+    yield put(Actions.interestFailure(error.response));
+  }
+}
+
 
 export default [
   watchFetchContentDetail,
@@ -74,4 +87,5 @@ export default [
   watchNewCommentRequest,
   watchCompleteRequest,
   watchDeleteRequest,
+  watchInterestRequest,
 ];
