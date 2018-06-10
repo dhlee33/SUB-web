@@ -28,10 +28,12 @@ class App extends React.PureComponent<Props> {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Container>
-          <UpperBar />
+        <div>
+        <UpperBar />
+        <Container style={{marginTop: '60px'}}>
           {routes}
         </Container>
+        </div>
       </ThemeProvider>
     );
   }

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Container} from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectProfile } from '../components/pages/ProfilePage/selector';
 import { Actions } from '../components/pages/LoginPage/reducer';
@@ -40,7 +40,7 @@ class UpperBar extends React.Component <Props, State> {
     const { user } = this.props;
 
     return (
-      <div>
+      <div style={{zIndex: 2, position: 'fixed', width: '100%', marginTop: '-60px'}}>
         <Navbar
           light
           expand="md"
@@ -49,6 +49,7 @@ class UpperBar extends React.Component <Props, State> {
             backgroundColor: 'white',
           }}
         >
+          <Container>
           <NavbarBrand href="/">
             <b>SNU-USEDBOOK</b>
           </NavbarBrand>
@@ -90,6 +91,7 @@ class UpperBar extends React.Component <Props, State> {
               }
             </Nav>
           </Collapse>
+          </Container>
         </Navbar>
       </div>
     );
