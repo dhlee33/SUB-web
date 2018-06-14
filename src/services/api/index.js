@@ -18,15 +18,17 @@ export const parseJSON = response => response.json();
 export const parseSettings = ({ method = 'get', data, locale, ...otherSettings } = {}) => {
   const headers = {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
     'Accept-Language': locale,
   };
   const authToken = getToken();
   if (authToken) {
     headers.Authorization = `Token ${authToken}`;
   }
+  if (!otherSettings.isFormData) {
+    headers['Content-Type'] = 'application/json';
+  }
   const settings = {
-    body: data ? JSON.stringify(data) : undefined,
+    body: data ? (otherSettings.isFormData ? data : JSON.stringify(data)) : undefined,
     method,
     headers,
     ...otherSettings,

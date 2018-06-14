@@ -18,6 +18,7 @@ import { getToken } from '../../../../utils/localStorage';
 import SaleList from './SaleList';
 import PurchaseList from './PurchaseList';
 import { Actions as DetailActions } from '../../DetailPage/reducer';
+import './ContentList.css';
 
 
 type Props = {

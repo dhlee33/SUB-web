@@ -40,6 +40,7 @@ class EditPage extends React.Component <Props, State> {
       bookSelected: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
   componentDidMount() {
@@ -51,19 +52,40 @@ class EditPage extends React.Component <Props, State> {
       const contentDetail = nextProps.content.toJS();
       const { title, content, price, department, contact, bookTitle, author, publisher } = contentDetail;
       let interparkImage = '';
+      const imagePreviewUrl = contentDetail.image;
       let priceStandard = 0;
       if (contentDetail.book) {
         priceStandard = contentDetail.book.priceStandard;
         interparkImage = contentDetail.book.image;
       }
-      this.setState({ title, content, price, department, contact, bookTitle, author, publisher, priceStandard, interparkImage, bookSelected: true });
+      this.setState({ title, content, price, department, contact, bookTitle, author, publisher, priceStandard, interparkImage, imagePreviewUrl, bookSelected: true });
     }
+  }
+
+  handleImageChange(e) {
+    e.preventDefault();
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        image: file,
+        imagePreviewUrl: reader.result,
+      });
+    };
+
+    reader.readAsDataURL(file);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.edit(this.props.type, this.props.match.params.id, _.omit(this.state, 'bookSelected'));
-    window.location.replace(`/${this.props.type}detail/${this.props.match.params.id}`);
+    const formData = new FormData();
+    const data = _.omit(this.state, ['bookSelected', 'imagePreviewUrl']);
+
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+    this.props.edit(this.props.type, this.props.match.params.id, formData);
   }
 
   render() {
@@ -95,7 +117,8 @@ class EditPage extends React.Component <Props, State> {
         <h4>책 정보 <InterparkSearch bookSelected={this.state.bookSelected} handleBook={b => this.setState(b)} /></h4>
         <hr />
         <Form>
-          {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" />}
+          {this.state.interparkImage && <img src={this.state.interparkImage} alt="book" width="20%" />}
+          {this.state.imagePreviewUrl && <img src={this.state.imagePreviewUrl} alt="book" width="20%" />}
           <FormGroup>
             <Label>책 제목</Label>
             <Input disabled={this.state.bookSelected} value={this.state.bookTitle} onChange={e => this.setState({ bookTitle: e.target.value })} />
@@ -131,7 +154,8 @@ class EditPage extends React.Component <Props, State> {
             </InputGroup>
           </FormGroup>
           <FormGroup>
-            <Button>책 사진 추가</Button>
+            <Label>책 사진 추가</Label>
+            <Input type="file" accept="image/*" onChange={this.handleImageChange} />
           </FormGroup>
         </Form>
         <hr />

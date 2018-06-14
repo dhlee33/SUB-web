@@ -9,9 +9,10 @@ export function* watchEditRequest() {
 
 export function* edit({ contentType, id, data }) {
   try {
-    const response = yield api.put(`transaction/${contentType}/${id}`, data);
+    console.log(...data);
+    const response = yield api.put(`transaction/${contentType}/${id}`, data, { isFormData: true });
     yield put(Actions.newPostSuccess(response));
-    window.location.replace('/');
+    window.location.replace(`/${contentType}detail/${id}`);
   } catch (error) {
     yield put(Actions.newPostFailure(error.response));
   }

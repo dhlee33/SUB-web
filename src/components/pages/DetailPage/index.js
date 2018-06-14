@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Container, Row, Col, Input, Button, Form, InputGroup, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Container, Row, Col, Input, Button, Form, InputGroup, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledCarousel } from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 import { FaUser, FaCalendarO } from 'react-icons/lib/fa';
@@ -11,6 +11,8 @@ import _ from 'lodash';
 import { Actions } from './reducer';
 import { makeSelectContentDetail, makeSelectContentComments, makeSelectNewComment } from './selector';
 import { makeSelectProfile } from '../ProfilePage/selector';
+import Images from '../../../containers/Images';
+import './DetailPage.css';
 
 type Props = {
   content: Map<string, any>,
@@ -111,6 +113,9 @@ class DetailPage extends React.Component <Props, State> {
         <div>loading...</div>
       );
     }
+    const images = [];
+    content.get('image') && images.push({ src: content.get('image') });
+    content.get('book') && images.push({ src: content.getIn(['book', 'image']), altText: 'image' });
     return (
       <Container>
         <br />
@@ -150,7 +155,10 @@ class DetailPage extends React.Component <Props, State> {
         <hr />
         <Row >
           <Col sm={6} lg={4}>
-            <img src={content.get('book') ? content.getIn(['book', 'image']) : 'https://www.classicposters.com/images/nopicture.gif'} alt="algorithm" height="350px" />
+            {images.length === 0 ?
+              <img src="https://www.classicposters.com/images/nopicture.gif" alt="no image" height="350px" /> :
+              <Images items={images} />
+            }
           </Col>
           <Col sm={6}>
             <p><b>책 제목: </b>{content.get('bookTitle')}</p>
