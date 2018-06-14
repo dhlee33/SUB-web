@@ -16,6 +16,7 @@ export function* login({ data }) {
     window.location.replace('/');
   } catch (error) {
     yield put(Actions.loginFailure(error.response));
+    window.alert('로그인에 실패했습니다');
   }
 }
 
