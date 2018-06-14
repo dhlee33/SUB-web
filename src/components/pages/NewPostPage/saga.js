@@ -7,10 +7,9 @@ export function* watchNewPostRequest() {
   yield takeLatest(Types.NEW_POST_REQUEST, newPost);
 }
 
-export function* newPost({ data }) {
+export function* newPost({ contentType, data }) {
   try {
-    const { contentType } = data;
-    const response = yield api.post(`transaction/${contentType}`, _.omit(data, ['contentType']));
+    const response = yield api.post(`transaction/${contentType}`, data, { isFormData: true });
     yield put(Actions.newPostSuccess(response));
     window.location.replace('/');
   } catch (error) {

@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  newPostRequest: ['data'],
+  newPostRequest: ['contentType', 'data'],
   newPostSuccess: ['payload'],
   newPostFailure: ['error'],
 });
