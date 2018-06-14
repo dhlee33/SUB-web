@@ -56,10 +56,11 @@ class AlarmPage extends React.PureComponent <Props> {
           !getToken() && <Redirect to='/' />
         }
         <br />
-        <h1>내가 사려는 책</h1>
-        <Button onClick={this.handleDeleteAlarms}>
+        <span>내가 사려는 책이나 팔려는 책과 연관된 글들을 보여줍니다.<Button color="link" onClick={this.handleDeleteAlarms}>
           모든 알림 지우기
-        </Button>
+        </Button></span>
+        <hr />
+        <h2>내가 살 책을 파는 글</h2>
         <br />
         <Table>
           <thead>
@@ -74,7 +75,7 @@ class AlarmPage extends React.PureComponent <Props> {
             {!!saleAlarms &&
               saleAlarms.map((alarm: any, id: string) =>
                 !alarm.getIn(['sale', 'isComplete']) &&
-                  <tr key={id} style={{ cursor: 'pointer' }}>
+                  <tr key={id}>
                     <td>
                       {alarm.getIn(['sale', 'bookTitle'])}&nbsp;
                       {alarm.getIn(['sale', 'sale_comments']).length !== 0 &&
@@ -100,7 +101,7 @@ class AlarmPage extends React.PureComponent <Props> {
           </tbody>
         </Table>
         <br />
-        <h1>내가 파려는 책</h1>
+        <h2>내가 팔 책을 사는 글</h2>
         <br />
         <Table>
           <thead>
@@ -115,7 +116,7 @@ class AlarmPage extends React.PureComponent <Props> {
             {!!purchaseAlarms &&
               purchaseAlarms.map((alarm: any, id: string) =>
                 !alarm.getIn(['purchase', 'isComplete']) &&
-                  <tr key={id} style={{ cursor: 'pointer' }}>
+                  <tr key={id}>
                     <td>
                       {alarm.getIn(['purchase', 'bookTitle'])}&nbsp;
                       {alarm.getIn(['purchase', 'purchase_comments']).length !== 0 &&

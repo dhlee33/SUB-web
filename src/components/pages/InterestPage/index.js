@@ -50,7 +50,6 @@ class InterestPage extends React.Component <Props> {
               const { sale } = s;
               return (<tr
                 key={sale.id}
-                style={{ cursor: 'pointer' }}
               >
                 <td>
                   {sale.bookTitle}&nbsp;
@@ -98,7 +97,6 @@ class InterestPage extends React.Component <Props> {
               const { purchase } = p;
               return (<tr
                 key={purchase.id}
-                style={{ cursor: 'pointer' }}
               >
                 <td>
                   {purchase.bookTitle}&nbsp;
