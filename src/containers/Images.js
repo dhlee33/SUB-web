@@ -48,30 +48,30 @@ class Images extends React.Component {
     const { activeIndex } = this.state;
     const items = this.props.items ? this.props.items : [];
     return (
-      <div style={{margin: '0 20px'}}>
-      <Carousel
-        activeIndex={activeIndex}
-        next={this.next}
-        previous={this.previous}
-        className="car1"
-        interval={false}
-      >
-        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-        {items.map(i =>
-          <CarouselItem
-            onExiting={this.onExiting}
-            onExited={this.onExited}
-            key={i.src}
-          >
-            <div style={{ textAlign: 'center', height: '350px', position: 'relative'}}>
-              <img src={i.src} alt={i.altText} style={{ maxWidth: '100%', maxHeight: '100%', position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }}/>
-            </div>
-            <CarouselCaption captionText={i.caption} captionHeader={i.caption} />
-          </CarouselItem>
+      <div style={{ margin: '0 20px' }}>
+        <Carousel
+          activeIndex={activeIndex}
+          next={this.next}
+          previous={this.previous}
+          className="car1"
+          interval={false}
+        >
+          <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+          {items.map(i =>
+            <CarouselItem
+              onExiting={this.onExiting}
+              onExited={this.onExited}
+              key={i.src}
+            >
+              <div style={{ textAlign: 'center', height: '350px', position: 'relative' }}>
+                <img src={i.src} alt={i.altText} style={{ width: '100%', maxHeight: '100%', position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }} />
+              </div>
+              <CarouselCaption captionText={i.caption} captionHeader={i.caption} />
+            </CarouselItem>
       )}
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-      </Carousel>
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        </Carousel>
       </div>
     );
   }
