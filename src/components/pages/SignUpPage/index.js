@@ -50,6 +50,22 @@ class SignUpPage extends React.PureComponent<Props, State> {
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.usernameChecked) {
+      if (this.state.username.length < 6) {
+        alert('아이디는 6자 이상이어야 합니다');
+        return;
+      }
+      if (this.state.password.length < 8) {
+        alert('비밀번호는 8자 이상이어야 합니다');
+        return;
+      }
+      if (!this.state.email.match(/@snu.ac.kr/)) {
+        alert('서울대학교 이메일 형식에 맞게 입력하여야 합니다');
+        return;
+      }
+      if (!this.state.nickname) {
+        alert('닉네임을 입력하여 주십시오');
+        return;
+      }
       this.props.signUp(this.state);
     } else {
       alert('아이디 중복확인을 해주세요');

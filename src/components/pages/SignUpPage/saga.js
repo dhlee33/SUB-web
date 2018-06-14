@@ -10,6 +10,7 @@ export function* signUp({ data }) {
   try {
     yield api.post('user/signup', data);
     yield put(Actions.signUpSuccess());
+    alert('회원가입이 완료되었습니다');
     window.location.replace('/');
   } catch (error) {
     yield put(Actions.signUpFailure(error.response));

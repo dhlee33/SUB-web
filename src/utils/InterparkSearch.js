@@ -24,7 +24,6 @@ class InterparkSearch extends Component <Props> {
       isFetching: false,
       bookSelected: this.props.bookSelected,
     };
-
     this.toggleModalButton = this.toggleModalButton.bind(this);
     this.toggleSearchButton = this.toggleSearchButton.bind(this);
     this.onClickBook = this.onClickBook.bind(this);
@@ -73,7 +72,6 @@ class InterparkSearch extends Component <Props> {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div style={{ display: 'inline-block' }}>
         <Button onClick={this.toggleModalButton} color="link">{this.state.bookSelected ? '책 정보 초기화' : '책 정보 검색'}</Button>
@@ -86,30 +84,30 @@ class InterparkSearch extends Component <Props> {
               </InputGroup>
             </Form>
             {this.state.isFetching ? <span>검색 중입니다...</span> :
-            <Table hover>
-              <thead>
-                <tr>
-                  <th>제목</th>
-                  <th>저자</th>
-                  <th>출판사</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.bookList.map(b =>
-                  <tr key={b.itemId} onClick={() => this.onClickBook(b)}>
-                    <td>
-                      {b.title}
-                    </td>
-                    <td>
-                      {b.author}
-                    </td>
-                    <td>
-                      {b.publisher}
-                    </td>
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>출판사</th>
                   </tr>
-                )}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {this.state.bookList.map(b =>
+                    <tr key={b.itemId} onClick={() => this.onClickBook(b)}>
+                      <td>
+                        {b.title}
+                      </td>
+                      <td>
+                        {b.author}
+                      </td>
+                      <td>
+                        {b.publisher}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </Table>
             }
           </ModalBody>
           <ModalFooter>

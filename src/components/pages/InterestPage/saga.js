@@ -23,6 +23,7 @@ export function* deleteInterestDetail({ contentType, id }) {
   try {
     const response = yield api.delete(`transaction/${contentType}/${id}/interest`);
     yield put(Actions.deleteInterestSuccess(response));
+    alert('삭제가 완료되었습니다');
     window.location.reload();
   } catch (error) {
     yield put(Actions.deleteInterestFailure(error.response));

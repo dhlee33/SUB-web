@@ -12,7 +12,6 @@ import { Actions } from './reducer';
 import { makeSelectContentDetail, makeSelectContentComments, makeSelectNewComment } from './selector';
 import { makeSelectProfile } from '../ProfilePage/selector';
 
-
 type Props = {
   content: Map<string, any>,
   comments: Map<string, any>,
@@ -45,7 +44,6 @@ class DetailPage extends React.Component <Props, State> {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.props.fetchContent(this.props.type, this.props.match.params.id);
   }
 
@@ -86,7 +84,6 @@ class DetailPage extends React.Component <Props, State> {
       window.location.replace('/');
     }
   }
-
 
   toggleDropdown() {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });

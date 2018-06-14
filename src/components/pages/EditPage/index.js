@@ -43,7 +43,6 @@ class EditPage extends React.Component <Props, State> {
   }
 
   componentDidMount() {
-    console.log(this.props.type, this.props.match.params.id, this.props);
     this.props.fetchContent(this.props.type, this.props.match.params.id);
   }
 

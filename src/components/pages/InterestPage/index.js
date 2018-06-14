@@ -12,11 +12,13 @@ import { makeSelectInterestList } from './selector';
 type Props = {
   interest: Object,
 }
+
 class InterestPage extends React.Component <Props> {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
   }
+
   componentDidMount() {
     this.props.fetchInterest();
   }
@@ -24,6 +26,7 @@ class InterestPage extends React.Component <Props> {
   handleDelete(contentType, id) {
     this.props.deleteInterest(contentType, id);
   }
+
   render() {
     const now = moment().format('YYYY/MM/DD');
     const interest = this.props.interest ? this.props.interest.toJS() : {};
@@ -32,7 +35,7 @@ class InterestPage extends React.Component <Props> {
         <br />
         <h1>장바구니</h1>
         <br />
-        <Table >
+        <Table>
           <thead>
             <tr>
               <th>책 제목</th>
@@ -49,14 +52,14 @@ class InterestPage extends React.Component <Props> {
                 key={sale.id}
                 style={{ cursor: 'pointer' }}
               >
-                <td>{sale.bookTitle}&nbsp;
+                <td>
+                  {sale.bookTitle}&nbsp;
                   {sale.sale_comments.length !== 0 &&
-                  <Badge color="primary">
-                    {sale.sale_comments.length}
-                  </Badge>
-                }
-                  {sale.isComplete && <Badge color="info">완료됨</Badge>
-                }
+                    <Badge color="primary">
+                      {sale.sale_comments.length}
+                    </Badge>
+                  }
+                  {sale.isComplete && <Badge color="info">완료됨</Badge>}
                 </td>
                 <td>{sale.price} 원</td>
                 <td>{now === moment(sale.updated)
@@ -65,12 +68,12 @@ class InterestPage extends React.Component <Props> {
                   .format('YYYY/MM/DD')}</td>
                 <td>
                   <Button size="sm" color="info" onClick={() => window.location.replace(`/saledetail/${sale.id}`)}>
-                  자세히 보기
+                    자세히 보기
                   </Button>
                 </td>
                 <td>
                   <Button size="sm" color="danger" onClick={() => this.handleDelete('sale', sale.id)}>
-                  지우기
+                    지우기
                   </Button>
                 </td>
               </tr>);
@@ -80,7 +83,7 @@ class InterestPage extends React.Component <Props> {
         <br />
         <h1>관심 목록</h1>
         <br />
-        <Table >
+        <Table>
           <thead>
             <tr>
               <th>책 제목</th>
@@ -97,15 +100,14 @@ class InterestPage extends React.Component <Props> {
                 key={purchase.id}
                 style={{ cursor: 'pointer' }}
               >
-                <td>{purchase.bookTitle}&nbsp;
+                <td>
+                  {purchase.bookTitle}&nbsp;
                   {purchase.purchase_comments.length !== 0 &&
-                  <Badge color="primary">
-                    {purchase.purchase_comments.length}
-                  </Badge>
-                }
-                  {purchase.isComplete && <Badge color="info">완료됨</Badge>
-                }
-
+                    <Badge color="primary">
+                      {purchase.purchase_comments.length}
+                    </Badge>
+                  }
+                  {purchase.isComplete && <Badge color="info">완료됨</Badge>}
                 </td>
                 <td>{purchase.price} 원</td>
                 <td>{now === moment(purchase.updated)

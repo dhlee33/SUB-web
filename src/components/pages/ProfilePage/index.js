@@ -104,7 +104,7 @@ class ProfilePage extends React.Component <Props> {
                 <Input type="password" onChange={e => this.setState({ password: e.target.value })} disabled={this.state.isDisabled} />
               </FormGroup>
               <FormGroup >
-                <Label > 비밀번호확인 </Label>
+                <Label>비밀번호 확인</Label>
                 <Input type="password" onChange={e => this.setState({ passwordConfirm: e.target.value })} disabled={this.state.isDisabled} />
               </FormGroup>
               <Button type="submit" color="success">저장</Button>

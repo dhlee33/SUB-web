@@ -10,6 +10,7 @@ import SignUpPage from 'components/pages/SignUpPage';
 import EditPage from 'components/pages/EditPage';
 import ProfilePage from 'components/pages/ProfilePage';
 import InterestPage from 'components/pages/InterestPage';
+import AlarmPage from 'components/pages/AlarmPage';
 
 const routes = (
   <Router basename="/">
@@ -24,6 +25,7 @@ const routes = (
       <Route exact path="/interest" component={InterestPage} />
       <Route exact path="/purchaseedit/:id" render={() => <EditPage type="purchase" />} />
       <Route exact path="/saleedit/:id" render={() => <EditPage type="sale" />} />
+      <Route exact path="/alarm" component={AlarmPage} />
     </Switch>
   </Router>
 );

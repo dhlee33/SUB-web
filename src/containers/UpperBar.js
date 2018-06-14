@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Container} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Container, Badge } from 'reactstrap';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectProfile } from '../components/pages/ProfilePage/selector';
 import { Actions } from '../components/pages/LoginPage/reducer';
@@ -65,7 +65,7 @@ class UpperBar extends React.Component <Props, State> {
                   </NavItem>
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
-                      {user.get('nickname')} 님
+                      {user.get('nickname')} 님 {user.get('alarm_count') > 0 && <Badge color="info">{user.get('alarm_count')}</Badge>}
                     </DropdownToggle>
                     <DropdownMenu right>
                       <DropdownItem onClick={() => window.location.replace('/profile')}>
@@ -73,6 +73,9 @@ class UpperBar extends React.Component <Props, State> {
                       </DropdownItem>
                       <DropdownItem onClick={() => window.location.replace('/interest')}>
                         장바구니
+                      </DropdownItem>
+                      <DropdownItem onClick={() => window.location.replace('/alarm')}>
+                        알림
                       </DropdownItem>
                       <DropdownItem divider />
                       <DropdownItem onClick={this.handleLogout}>

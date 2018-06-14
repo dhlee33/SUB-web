@@ -75,6 +75,7 @@ export function* postInterest({ contentType, id }) {
   try {
     yield api.post(`transaction/${contentType}/${id}/interest`);
     yield put(Actions.interestSuccess());
+    alert('관심목록에 추가되었습니다.');
   } catch (error) {
     yield put(Actions.interestFailure(error.response));
   }
