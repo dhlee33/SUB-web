@@ -62,6 +62,21 @@ class NewPostPage extends React.Component <Props, State> {
 
   handleSubmit(event) {
     event.preventDefault();
+    let error = null;
+    const { title, content, department, bookTitle, author, publisher, price, priceStandard, contact } = this.state;
+    !contact && (error = '연락처를 입력하세요');
+    !priceStandard && (error = '원가를 입력하세요');
+    !price && (error = '가격을 입력하세요');
+    !publisher && (error = '출판사를 입력하세요');
+    !author && (error = '저자를 입력하세요');
+    !bookTitle && (error = '책 제목을 입력하세요');
+    !content && (error = '글 내용을 입력하세요');
+    !department && (error = '해당 단과대를 입력하세요');
+    !title && (error = '글 제목을 입력하세요');
+    if (error) {
+      alert(error);
+      return;
+    }
     const formData = new FormData();
     const data = _.omit(this.state, ['bookSelected', 'imagePreviewUrl', 'contentType']);
 
