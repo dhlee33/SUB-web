@@ -167,7 +167,7 @@ class NewPostPage extends React.Component <Props, State> {
         <Form>
           <FormGroup>
             <Label >내용</Label>
-            <Input onChange={({ target }) => this.setState({ content: target.value })} />
+            <Input type="textarea" onChange={({ target }) => this.setState({ content: target.value })} />
           </FormGroup>
           <FormGroup>
             <Label>연락처</Label>
