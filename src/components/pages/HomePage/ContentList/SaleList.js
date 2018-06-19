@@ -38,7 +38,7 @@ const SaleList = ({ contentList, postInterest }) => {
               </CardHeader>
               <CardBody>
                 <Row>
-                  <Col style={{ textAlign: 'center' }} sm={12} md={5}><img src={s.image || (s.book ? s.book.image : 'https://www.classicposters.com/images/nopicture.gif')} alt="BOOKIMG" style={{ width: '85%', maxHeight: '100%', position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }}/></Col>
+                  <Col style={{ textAlign: 'center' }} sm={12} md={5}><img src={s.image || (s.book ? s.book.image : 'https://www.classicposters.com/images/nopicture.gif')} alt="BOOKIMG" style={{ height: '85%', maxWidth: '90%', position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }}/></Col>
                   <Col sm={12} md={7}>
                     <p><b>책 제목: </b> {s.bookTitle}</p>
                     <p><b>저자: </b> {s.author}</p>
